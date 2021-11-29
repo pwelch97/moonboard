@@ -5,8 +5,6 @@
 #./10-prepare-raspi.sh # FIXME
 #./20-prepare-python.sh # FIXME
 
-
-
 echo "Install DBUS service" # FIXME
 sudo cp /home/pi/moonboard/ble/com.moonboard.conf /etc/dbus-1/system.d
 sudo cp /home/pi/moonboard/ble/com.moonboard.service /lib/systemd/system/com.moonboard.service
