@@ -23,7 +23,7 @@ test -d moonboard || git clone https://github.com/8cH9azbsFifZ/moonboard.git
 cd moonboard
 git pull
 
-# Installing python dependencies
+# Installing python dependencies # FIXME venv
 echo "Installing python dependencies"
 pip3 install -r install/requirements.txt
 sudo pip3 install -r install/requirements.txt 
