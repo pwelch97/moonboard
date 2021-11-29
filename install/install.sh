@@ -44,7 +44,6 @@ sudo cp /home/pi/moonboard/ble/com.moonboard.service /usr/share/dbus-1/system-se
 echo "Prepare logfiles"
 sudo touch /var/log/moonboard
 sudo chown pi:pi /var/log/moonboard
-sudo chown pi:pi /var/log/moonboard
 
 # Prepare phase 2 to run at boot
 sudo cp --verbose /home/pi/moonboard/services/moonboard-install.service /lib/systemd/system/moonboard-install.service
