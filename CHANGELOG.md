@@ -1,0 +1,3 @@
+- v0.28 merged moonboard mini protocol
+- v0.27 merged bt fix test
+- v0.23 running in gz setup
