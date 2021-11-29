@@ -21,6 +21,10 @@ ssh -lpi raspi-moonboard "tail -f /var/log/moonboard*"
 ssh -lpi raspi-moonboard "./moonboard/scripts/fix_startup.sh"
 ```
 
+# Checking status of services
+ssh -lpi raspi-moonboard sudo systemctl status moonboard.service
+
+ssh -lpi raspi-moonboard sudo systemctl status com.moonboard.service
 
 # Updating
 ssh -lpi raspi-moonboard "cd moonboard ; git pull; cd install ; ./install.sh"
