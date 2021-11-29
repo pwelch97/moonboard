@@ -6,7 +6,7 @@ SystemdService=dbus-org.com.moonbooard.service
 [Service]
 Type=dbus
 BusName=com.moonboard
-ExecStart=/usr/bin/python3 /home/pi/moonboard/ble/moonboard_BLE_service.py
+ExecStart=/usr/bin/python3 /home/pi/moonboard/ble/moonboard_BLE_service.py >> /var/log/moonboard_ble
 User=root
 
 [Install]
