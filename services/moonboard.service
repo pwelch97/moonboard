@@ -1,5 +1,6 @@
 [Unit]
 Description=Moonboad App Service
+Wants=com.moonboard.service
 After=multi-user.target 
 
 [Service]
