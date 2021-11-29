@@ -1,6 +1,6 @@
 # Bluetooth monitoring
 
-ssh -lpi raspi-moonboard sudo btmon
+```ssh -lpi raspi-moonboard sudo btmon```
 
 ## Example
 sudo btmon
@@ -161,7 +161,7 @@ Bluetooth monitor ver 5.50
 
 
 # DBUS Monitoring
-ssh -lpi raspi-moonboard sudo dbus-monitor --system|less
+```ssh -lpi raspi-moonboard sudo dbus-monitor --system|less```
 
 ## Example
 
