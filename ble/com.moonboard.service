@@ -1,6 +1,6 @@
 [Unit]
 Description=Moonboard BLE DBUS Service
-After=multi-user.target
+After=multi-user.target bluetooth.service dbus.service
 SystemdService=dbus-org.com.moonbooard.service
 
 [Service]
