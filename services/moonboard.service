@@ -1,12 +1,13 @@
-
 [Unit]
-Description= moon board app service
+Description=Moonboad App Service
 After=multi-user.target 
 
 [Service]
 User=pi
 Type=idle
 ExecStart=/bin/bash /home/pi/moonboard/scripts/run.sh
+StandardOutput=file:/var/log/moonboard_stdout.log
+StandardError=file:/var/log/moonboard_stderr.log
 
 [Install]
 WantedBy=multi-user.target
