@@ -10,8 +10,6 @@ ExecStart=/usr/bin/python3 /home/pi/moonboard/ble/moonboard_BLE_service.py
 User=root
 StandardOutput=file:/var/log/moonboard_ble_stdout.log
 StandardError=file:/var/log/moonboard_ble_stderr.log
-ExecStartPre=/bin/sleep 30
-
 
 [Install]
 WantedBy=multi-user.target

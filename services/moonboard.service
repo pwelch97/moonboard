@@ -2,12 +2,10 @@
 Description=Moonboad App Service
 After=com.moonboard.service dbus.service multi-user.target 
 
-
 [Service]
 User=root 
 Type=idle
 ExecStart=/usr/bin/python3 /home/pi/moonboard/run.py --debug --driver PiWS281x
-ExecStartPre=/bin/sleep 30
 StandardOutput=file:/var/log/moonboard_stdout.log
 StandardError=file:/var/log/moonboard_stderr.log
 
