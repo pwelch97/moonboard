@@ -3,11 +3,8 @@
 # FIXME: must run from this dir in checkout out version
 
 #./10-prepare-raspi.sh # FIXME
+#./20-prepare-python.sh # FIXME
 
-# Installing python dependencies # FIXME venv
-echo "Installing python dependencies"
-#pip3 install -r requirements.txt 
-#sudo pip3 install -r requirements.txt 
 
 
 echo "Install DBUS service" # FIXME
