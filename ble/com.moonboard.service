@@ -1,7 +1,8 @@
 [Unit]
 Description=Moonboard BLE DBUS Service
-After=multi-user.target bluetooth.service dbus.service
-SystemdService=dbus-org.com.moonbooard.service
+After=multi-user.target bluetooth.service dbus.service hciuart.service 
+SystemdService=dbus-org.com.moonbooard.service 
+# FIXME: SystemdService not known
 
 [Service]
 Type=dbus

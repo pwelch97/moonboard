@@ -28,3 +28,6 @@ ssh -lpi raspi-moonboard sudo systemctl status com.moonboard.service
 
 # Updating
 ssh -lpi raspi-moonboard "cd moonboard ; git pull; cd install ; ./install.sh"
+
+
+sudo systemctl disable hciuart.service 
