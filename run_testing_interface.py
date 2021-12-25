@@ -58,3 +58,4 @@ if __name__ == "__main__":
     #MOONBOARD.show_problem(holds)
     MOONBOARD.clear()
     MOONBOARD.show_hold("A4")
+    MOONBOARD.show_hold("B4")
