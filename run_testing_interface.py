@@ -51,5 +51,5 @@ if __name__ == "__main__":
     led_layout = LED_LAYOUT.get(args.led_layout) if args.led_layout is not None else None
     MOONBOARD = MoonBoard(args.driver_type, led_layout)
 
-    holds = "K7"
+    holds = ["K7"]
     MOONBOARD.show_problem(holds)
