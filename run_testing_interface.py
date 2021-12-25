@@ -54,9 +54,20 @@ class Database():
         #t = "Time: " + str(msg["time"])
         #lmax = "\rLoad Max: %.1f    " % msg["loadmaximal"]
         
+        lc = int(msg["loadcurrent"]) 
+        lc1 = int(repr(lc)[-1]) 
+        #lc10 = int(repr(lc)[-2]) 
+        #lc100 = int(repr(lc)[-3]) 
+
         self._MOONBOARD.clear()
-        self._MOONBOARD.show_hold("A4")
-        self._MOONBOARD.show_hold("B4")
+        
+        #charmax = chr(ord('@')+lc1)
+        for i1 in range (0, lc1):
+            ichar = chr(ord('@')+i1)
+            self._MOONBOARD.show_hold(ichar+"4")
+
+        #self._MOONBOARD.show_hold("A4")
+        #self._MOONBOARD.show_hold("B4")
 
 
     def _record_data(self, hostname="localhost",port=1883):
