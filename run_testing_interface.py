@@ -58,9 +58,10 @@ class Database():
         lc1 = int(repr(lc)[-1]) 
         #lc10 = int(repr(lc)[-2]) 
         #lc100 = int(repr(lc)[-3]) 
-
+        logging.debug ("Clean board")
         self._MOONBOARD.clear()
         
+        logging.debug ("Begin display holds")
         #charmax = chr(ord('@')+lc1)
         for i1 in range (1, lc1):
             ichar = chr(ord('@')+i1)
