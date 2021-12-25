@@ -51,13 +51,9 @@ if __name__ == "__main__":
     led_layout = LED_LAYOUT.get(args.led_layout) if args.led_layout is not None else None
     MOONBOARD = MoonBoard(args.driver_type, led_layout)
 
-    #holds = ["K7"]
     holds = {} 
-    #['START']
     holds ["START"] = "K1"
     holds ["MOVES"] = ["B2", "B5"] 
-
     holds ["TOP"] = "K7"
-    #for k in ['START', 'MOVES', 'TOP']:
-    #    for hold in holds[k]:
-    MOONBOARD.show_problem(holds)
+    #MOONBOARD.show_problem(holds)
+    MOONBOARD.show_hold("A4")
