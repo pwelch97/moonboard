@@ -8,6 +8,7 @@ import os
 #import signal
 import sys
 import logging
+import time
 import paho.mqtt.client as paho
 # FIXME pip install 
 
@@ -15,8 +16,69 @@ import paho.mqtt.client as paho
 LED_GPIO = 26
 BUTTON_GPIO = 3
 
+
+import logging
+logging.basicConfig(level=logging.DEBUG,
+                    format='Display(%(threadName)-10s) %(message)s',
+                    )
+
+
+
+class Database():
+    def __init__(self):
+        self._MOONBOARD = MoonBoard(driver_type, led_layout)
+
+        # Init timers
+        self._time_current = time.time()
+        self._time_last = self._time_current 
+        self._update_interval = 1.0 #0.5 # Update interval for display in seconds
+
+
+    def _on_message(self, client, userdata, message):
+        logging.debug("Write message " + str(message.payload.decode("utf-8")))
+
+        msg = json.loads(message.payload.decode("utf-8"))
+
+        # Check if interval large enough
+        time_last = self._time_current 
+        self._time_current = time.time()
+        del_time = self._time_current - self._time_last
+        #logging.debug(del_time)
+        if del_time < self._update_interval:
+            return
+        
+        self._time_last = time_last
+
+        print (msg)
+        #l = "\rLoad: %.1f    " % msg["loadcurrent"]
+        #t = "Time: " + str(msg["time"])
+        #lmax = "\rLoad Max: %.1f    " % msg["loadmaximal"]
+        
+        self._MOONBOARD.clear()
+        self._MOONBOARD.show_hold("A4")
+        self._MOONBOARD.show_hold("B4")
+
+
+    def _record_data(self, hostname="localhost",port=1883):
+        logging.debug("Start recording data from mqtt to database")
+        self._client= paho.Client("client-001")  # FIXME
+        self._client.on_message=self._on_message
+        self._client.connect(hostname,port,60)#connect
+
+        # FIXME: subscribe to all?
+        
+        self._client.subscribe("hangboard/sensor/load/loadstatus")
+        #self._client.subscribe("hangboard/sensor/sensorstatus")
+        #self._client.subscribe("hangboard/sensor/lastexercise")
+        #self._client.subscribe("hangboard/workout/userstatistics")
+        #self._client.subscribe("hangboard/workout/upcoming")
+
+        self._client.loop_forever()
+
 # Main stuff
+
 if __name__ == "__main__":
+
     parser = argparse.ArgumentParser(description='')
 
     parser.add_argument('--driver_type',
@@ -33,7 +95,6 @@ if __name__ == "__main__":
 
     parser.add_argument('--debug',  action = "store_true")
 
-
     args = parser.parse_args()
     argsd=vars(args)
     logger = logging.getLogger('run')
@@ -47,13 +108,7 @@ if __name__ == "__main__":
 
     #problems
     led_layout = LED_LAYOUT.get(args.led_layout) if args.led_layout is not None else None
-    MOONBOARD = MoonBoard(args.driver_type, led_layout)
+    driver_type = args.driver_type
 
-    holds = {} 
-    holds ["START"] = "K1"
-    holds ["MOVES"] = ["B2", "B5"] 
-    holds ["TOP"] = "K7"
-    #MOONBOARD.show_problem(holds)
-    MOONBOARD.clear()
-    MOONBOARD.show_hold("A4")
-    MOONBOARD.show_hold("B4")
+    d = Database()
+    d._record_data(hostname="raspi-hangboard")   
