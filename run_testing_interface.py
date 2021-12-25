@@ -68,6 +68,7 @@ class Database():
             ihold = ichar+"4"
             logging.debug("Use hold "+ihold)
             self._MOONBOARD.show_hold(ihold)
+            # FIXME: Runs too long - next event occurs....
 
         #self._MOONBOARD.show_hold("A4")
         #self._MOONBOARD.show_hold("B4")
