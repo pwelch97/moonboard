@@ -62,7 +62,7 @@ class Database():
         self._MOONBOARD.clear()
         
         #charmax = chr(ord('@')+lc1)
-        for i1 in range (0, lc1):
+        for i1 in range (1, lc1):
             ichar = chr(ord('@')+i1)
             self._MOONBOARD.show_hold(ichar+"4")
 
