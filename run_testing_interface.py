@@ -35,7 +35,7 @@ class Database():
 
 
     def _on_message(self, client, userdata, message):
-        logging.debug("Write message " + str(message.payload.decode("utf-8")))
+        logging.debug("Received message " + str(message.payload.decode("utf-8")))
 
         msg = json.loads(message.payload.decode("utf-8"))
 
@@ -43,13 +43,13 @@ class Database():
         time_last = self._time_current 
         self._time_current = time.time()
         del_time = self._time_current - self._time_last
-        #logging.debug(del_time)
-        #if del_time < self._update_interval:
-        #    return
+        logging.debug(del_time)
+        if del_time < self._update_interval:
+            return
         
         self._time_last = time_last
 
-        print (msg)
+        logging.debug ("Using it")
         #l = "\rLoad: %.1f    " % msg["loadcurrent"]
         #t = "Time: " + str(msg["time"])
         #lmax = "\rLoad Max: %.1f    " % msg["loadmaximal"]
