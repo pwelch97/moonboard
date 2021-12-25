@@ -25,7 +25,7 @@ logging.basicConfig(level=logging.DEBUG,
 
 
 class Database():
-    def __init__(self):
+    def __init__(self, driver_type="", led_layout=""):
         self._MOONBOARD = MoonBoard(driver_type, led_layout)
 
         # Init timers
@@ -121,5 +121,5 @@ if __name__ == "__main__":
     led_layout = LED_LAYOUT.get(args.led_layout) if args.led_layout is not None else None
     driver_type = args.driver_type
 
-    d = Database()
+    d = Database(driver_type=driver_type, led_layout=led_layout)
     d._record_data(hostname="raspi-hangboard")   
