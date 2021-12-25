@@ -1,17 +1,15 @@
 # -*- coding: utf-8 -*-
 import argparse
 from led.moonboard import MoonBoard,LED_LAYOUT
-from gi.repository import GLib
-import dbus
-from dbus.mainloop.glib import DBusGMainLoop
 from functools import partial
-import json 
 import json
 import RPi.GPIO as GPIO
 import os
 #import signal
 import sys
 import logging
+import paho.mqtt.client as paho
+# FIXME pip install 
 
 # external power LED and power button
 LED_GPIO = 26
