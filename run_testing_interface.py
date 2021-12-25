@@ -55,6 +55,8 @@ if __name__ == "__main__":
     holds = {} 
     #['START']
     holds ["START"] = "K1"
+    holds ["MOVES"] = ["B2", "B5"] 
+
     holds ["TOP"] = "K7"
     #for k in ['START', 'MOVES', 'TOP']:
     #    for hold in holds[k]:
