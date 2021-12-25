@@ -56,4 +56,5 @@ if __name__ == "__main__":
     holds ["MOVES"] = ["B2", "B5"] 
     holds ["TOP"] = "K7"
     #MOONBOARD.show_problem(holds)
+    MOONBOARD.clear()
     MOONBOARD.show_hold("A4")
