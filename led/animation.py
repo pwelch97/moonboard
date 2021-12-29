@@ -155,6 +155,8 @@ class MoonBoard:
         sparkPos = [0,0,0,0,0,0,0,0,0] # width of flare: 3 LED
         sparkVel = [0,0,0,0,0,0,0,0,0]
         sparkCol = [0,0,0,0,0,0,0,0,0]
+        tmp_col = ord (my_col)
+        spark_col = [tmp_col,tmp_col,tmp_col,tmp_col,tmp_col,tmp_col,tmp_col,tmp_col,tmp_col]
         
         flarePos = 0.
         gravity = -.004 * 10 # m/s/s
@@ -239,10 +241,13 @@ class MoonBoard:
                 sparkVel[i] = sparkVel[i] + dying_gravity
                 sparkCol[i] = sparkCol[i] * .9 # FIXME 
                 sparkCol[i] = clamp(sparkCol[i], 0, 255) #  // red cross dissolve 
-
+                
+                spark_col[i] = spark_col[i] + sparkVel[i]
+                tmp_col = chr(int(spark_col[i])+65)
+                
                 c = (0,0,0)
                 tmp_row = clamp(int (sparkPos[i]), 1, NUM_LEDS)
-                tmp_led = my_col + str (tmp_row)
+                tmp_led = tmp_col + str (tmp_row)
                 if(sparkCol[i] > c1): #// fade white to yellow
                     c = (255, 255, (255 * (sparkCol[i] - c1)) / (255 - c1))
                 elif sparkCol[i] < c2: # // fade from red to black
