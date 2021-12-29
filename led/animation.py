@@ -203,8 +203,11 @@ class MoonBoard:
 
             # flare
             #leds[int(flarePos)] = CHSV(0, 0, int(brightness * 255));
-            #FastLED.show();
-            #FastLED.clear();
+            tmp_row = clamp(int (flarePos), 1, 18)
+            tmp_led = my_col + str (tmp_row)
+            flareCol = (255.,0,0)
+            print ("Flare position "+str(tmp_led)+" with "+str(flarePos)+" and "+str(flareCol))
+            self.layout.set(self.MAPPING[tmp_led], flareCol)
             self.layout.push_to_driver()
             flarePos = flarePos + flareVel
             flareVel = flareVel + gravity
