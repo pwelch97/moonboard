@@ -160,10 +160,10 @@ class MoonBoard:
         sparkCol = [0,0,0,0,0]
         flarePos = 0.
 
-        gravity = -.004; # m/s/s
+        gravity = -.004 * 100 # m/s/s
 
         flarePos = 0
-        flareVel = random.randint(50,90) #/ 100.  # trial and error to get reasonable range
+        flareVel = random.randint(50,90) / 100.  # trial and error to get reasonable range
         brightness = 1.
 
         print ("Run flare")
