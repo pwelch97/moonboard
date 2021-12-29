@@ -148,12 +148,10 @@ class MoonBoard:
 
 
 
-    def run_flare(self):
-        NUM_LEDS = 18
+    def run_flare(self, my_col="F"):
+        NUM_LEDS = 18 # FIXME
         #NUM_SPARKS = NUM_LEDS/2 #// max number (could be NUM_LEDS / 2);
         
-        my_col = "F"        # FIXME
-
         sparkPos = [0,0,0] # width of flare: 3 LED
         sparkVel = [0,0,0]
         sparkCol = [0,0,0]
@@ -305,7 +303,8 @@ if __name__=="__main__":
 
     print("Run animation,")
     #MOONBOARD.run_animation() 
-    MOONBOARD.run_flare()
+    MOONBOARD.run_flare(my_col="F")
+    MOONBOARD.run_flare(my_col="A")
 
     print(f"wait {args.duration} seconds,")
     time.sleep(args.duration)
