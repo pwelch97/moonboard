@@ -224,7 +224,7 @@ class MoonBoard:
 
         sparkCol[0] = 255 # // this will be our known spark 
         dying_gravity = gravity
-        c1 = 120*2.3
+        c1 = 120*1.5
         c2 = 50*2.7
 
         while sparkCol[0] > c2/128: # as long as our known spark is lit, work with all the sparks
