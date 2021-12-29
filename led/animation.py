@@ -292,6 +292,7 @@ class MoonBoard:
         self.clear()
 
     def display_melon(self):
+        # Ref: http://pixelartmaker.com/art/d8f3ce82dd215ed
         self.clear()
         red = (255,0,0)
         black = (0,0,0)
