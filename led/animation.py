@@ -9,6 +9,7 @@ from bibliopixel.drivers.spi_interfaces import SPI_INTERFACES
 import string
 import json
 import time
+import random
 
 # FIXME: Describe Layouts 
 # FIXME: Delete this
@@ -141,8 +142,69 @@ class MoonBoard:
         time.sleep (1.2)
         self.clear()
 
+    def clamp(n, minn, maxn):
+        return max(min(maxn, n), minn)
+
+    def run_flare(self):
+        NUM_SPARKS = 18/2 #// max number (could be NUM_LEDS / 2);
+
+        my_row = "F"
+
+        sparkPos = []
+        sparkVel = []
+        sparkCol = []
+        flarePos = 0.
+
+        gravity = -.004; # m/s/s
+
+        flarePos = 0
+        flareVel = random.randint(50,90) / 100.  # trial and error to get reasonable range
+        brightness = 1.
+
+        print ("Run flare")
+
+        # initialize launch sparks
+        for i in range (0,5):
+            sparkPos[i] = 0.
+            sparkVel[i] = float(random.randint(1,255) / 255) * (flareVel / 5)
+            # random around 20% of flare velocity
+            sparkCol[i] = sparkVel[i] * 1000
+            sparkCol[i] = self.clamp(sparkCol[i], 0, 255)
+
+        # launch
+        self.clear()
+        while flareVel >= -.2:
+            # sparks
+            for i in range (0,5):
+                sparkPos[i] = sparkPos[i] + sparkVel[i]
+                sparkPos[i] = self.clamp(sparkPos[i], 0, 120)
+                sparkVel[i] = sparkVel[i] + gravity
+                sparkCol[i] = sparkCol[i] -.8
+                sparkCol[i] = self.clamp(sparkCol[i], 0, 255)
+                
+                #leds[int(sparkPos[i])] = HeatColor(sparkCol[i])
+                #leds[int(sparkPos[i])] %= 50 # reduce brightness to 50/255
+                c = (100,100,0)
+                tmp_led = my_row + str (sparkPos[i])
+                self.layout.set(self.MAPPING[tmp_led], c)
+
+
+            # flare
+            #leds[int(flarePos)] = CHSV(0, 0, int(brightness * 255));
+            #FastLED.show();
+            #FastLED.clear();
+            self.layout.push_to_driver()
+            flarePos = flarePos + flareVel
+            flareVel = flareVel + gravity
+            brightness =  brightness * .985
+
+
+
 
     def run_animation(self, run_options={}, **kwds): # FIXME: will it still work?
+        # The moonboard can serve a (x,y) = (11,18) --> 198 Pixel display 
+        # Refs: 
+        # - http://www.anirama.com/1000leds/1d-fireworks/
         duration = 0.01
         duration2 = duration * 10
 
@@ -160,6 +222,8 @@ class MoonBoard:
         time.sleep(duration2)
 
         self.clear()
+
+    
         
     def display_holdset(self, holdset="Hold Set A", duration=10, **kwds): 
         print ("Display holdset: " + str(holdset))
