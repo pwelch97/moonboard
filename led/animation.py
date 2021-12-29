@@ -211,6 +211,7 @@ class MoonBoard:
         # Phase 2: Explosion
         print ("Run explosion")
         nSparks = int (flarePos / 2)
+        nSparks = clamp(nSparks,0,5) # FIXME: Max sparks
 
         # Initialize Sparks
         for i in range (0,nSparks):
