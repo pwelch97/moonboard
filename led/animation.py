@@ -152,9 +152,9 @@ class MoonBoard:
         NUM_LEDS = 18 # FIXME
         #NUM_SPARKS = NUM_LEDS/2 #// max number (could be NUM_LEDS / 2);
         
-        sparkPos = [0,0,0,0,0,0] # width of flare: 3 LED
-        sparkVel = [0,0,0,0,0,0]
-        sparkCol = [0,0,0,0,0,0]
+        sparkPos = [0,0,0,0,0,0,0,0,0] # width of flare: 3 LED
+        sparkVel = [0,0,0,0,0,0,0,0,0]
+        sparkCol = [0,0,0,0,0,0,0,0,0]
         
         flarePos = 0.
         gravity = -.004 * 10 # m/s/s
@@ -211,7 +211,6 @@ class MoonBoard:
         # Phase 2: Explosion
         print ("Run explosion")
         nSparks = int (flarePos / 2)
-        nSparks = clamp(nSparks,0,5) # FIXME: Max sparks
 
         # Initialize Sparks
         for i in range (0,nSparks):
