@@ -311,6 +311,14 @@ class MoonBoard:
             self.layout.set(self.MAPPING[h], green1)
         for h in ["B3","C3","D3","E3","F3","G3"]:
             self.layout.set(self.MAPPING[h], lila)
+        for f in ["A4","C4","D4","E4","F4","G4"]:
+            self.layout.set(self.MAPPING[h], red)
+        for f in ["H4"]:
+            self.layout.set(self.MAPPING[h], lila)
+        for f in ["I4"]:
+            self.layout.set(self.MAPPING[h], green1)
+        for f in ["I4"]:
+            self.layout.set(self.MAPPING[h], green2)
 
         self.layout.push_to_driver()
         time.sleep(10)
