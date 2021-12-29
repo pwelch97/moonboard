@@ -14,6 +14,12 @@ import random
 def clamp(n, minn, maxn):
     return max(min(maxn, n), minn)
 
+def rgb2hex(r,g,b):
+    return "#{:02x}{:02x}{:02x}".format(r,g,b)
+
+def hex2rgb(hexcode):
+    return tuple(map(ord,hexcode[1:].decode('hex')))
+
 
 # FIXME: Describe Layouts 
 # FIXME: Delete this
@@ -289,8 +295,22 @@ class MoonBoard:
 
         self.clear()
 
-    def display_rainbow(self):
+    def display_melon(self):
         self.clear()
+        red = (255,0,0)
+        black = (0,0,0)
+        lila = hex2rgb'ff99dd') #(255,100,200) #ff99dd
+        green1 = hex2rgb('118233') #COLORS.lime)
+        green2 = hex2rgb('089c48') #COLORS.limegreen
+
+        for h in ["A1","A2","A3","A4","A5"]:
+            self.layout.set(self.MAPPING[h], green2)
+
+        self.layout.push_to_driver()
+        time.sleep(10)
+
+
+        
 
 
         
@@ -358,9 +378,10 @@ if __name__=="__main__":
     #MOONBOARD.display_holdset(args.holdset, args.duration)
 
     print("Run animation,")
-    MOONBOARD.run_animation() 
-    MOONBOARD.run_flare(my_col="F")
-    MOONBOARD.run_flare(my_col="A")
+    #MOONBOARD.run_animation() 
+    #MOONBOARD.run_flare(my_col="F")
+    #MOONBOARD.run_flare(my_col="A")
+    MOONBOARD.display_melon()
 
     print(f"wait {args.duration} seconds,")
     time.sleep(args.duration)
