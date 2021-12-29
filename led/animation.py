@@ -148,7 +148,7 @@ class MoonBoard:
 
 
 
-    def run_flare(self, my_col="F"):
+    def run_flare(self, my_col="F", use_cols=False):
         NUM_LEDS = 18 # FIXME
         #NUM_SPARKS = NUM_LEDS/2 #// max number (could be NUM_LEDS / 2);
         
@@ -242,9 +242,11 @@ class MoonBoard:
                 sparkCol[i] = sparkCol[i] * .9 # FIXME 
                 sparkCol[i] = clamp(sparkCol[i], 0, 255) #  // red cross dissolve 
                 
-                spark_col[i] = spark_col[i] + sparkVel[i]
-                spark_col[i] = clamp(spark_col[i],65,65+11-1) # FIXME
-                tmp_col = chr(int(spark_col[i]))
+                tmp_col = my_col
+                if use_cols:
+                    spark_col[i] = spark_col[i] + sparkVel[i]
+                    spark_col[i] = clamp(spark_col[i],65,65+11-1) # FIXME
+                    tmp_col = chr(int(spark_col[i]))
 
                 c = (0,0,0)
                 tmp_row = clamp(int (sparkPos[i]), 1, NUM_LEDS)
