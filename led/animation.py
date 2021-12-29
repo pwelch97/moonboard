@@ -206,7 +206,7 @@ class MoonBoard:
             flarePos = flarePos + flareVel
             flarePos = clamp(flarePos, 0, NUM_LEDS)
             flareVel = flareVel + gravity
-            brightness =  brightness * 0.92
+            brightness =  brightness * 0.9
 
         # Phase 2: Explosion
         print ("Run explosion")
@@ -222,8 +222,8 @@ class MoonBoard:
 
         sparkCol[0] = 255 # // this will be our known spark 
         dying_gravity = gravity
-        c1 = 120
-        c2 = 50
+        c1 = 120*2
+        c2 = 50*2d
 
         while sparkCol[0] > c2/128: # as long as our known spark is lit, work with all the sparks
             print ("Run spark with reference spark lit  "+str(sparkCol[0]))
@@ -256,6 +256,8 @@ class MoonBoard:
 
             dying_gravity = dying_gravity * .995 #// as sparks burn out they fall slower
             self.layout.push_to_driver()
+
+
 
     def run_animation(self, run_options={}, **kwds): # FIXME: will it still work?
         # The moonboard can serve a (x,y) = (11,18) --> 198 Pixel display 
