@@ -150,6 +150,7 @@ class MoonBoard:
 
     def run_flare(self):
         NUM_SPARKS = 18/2 #// max number (could be NUM_LEDS / 2);
+        # FIXME
 
         my_col = "F"
 
@@ -191,6 +192,7 @@ class MoonBoard:
                 tmp_row = clamp(int (sparkPos[i]), 1, 18)
                 c = (sparkCol[i],0,0)
                 tmp_led = my_col + str (tmp_row)
+                print ("Spark position "+str(tmp_led))
                 self.layout.set(self.MAPPING[tmp_led], c)
 
 
