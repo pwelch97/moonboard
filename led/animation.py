@@ -311,14 +311,33 @@ class MoonBoard:
             self.layout.set(self.MAPPING[h], green1)
         for h in ["B3","C3","D3","E3","F3","G3"]:
             self.layout.set(self.MAPPING[h], lila)
-        for f in ["A4","C4","D4","E4","F4","G4"]:
+        for h in ["A4","C4","D4","E4","F4","G4"]:
             self.layout.set(self.MAPPING[h], red)
-        for f in ["H4"]:
+        for h in ["H4"]:
             self.layout.set(self.MAPPING[h], lila)
-        for f in ["I4"]:
+        for h in ["I4"]:
             self.layout.set(self.MAPPING[h], green1)
-        for f in ["I4"]:
+        for h in ["J4"]:
             self.layout.set(self.MAPPING[h], green2)
+        for h in ["A5","B5","C5","E5","G4"]:
+            self.layout.set(self.MAPPING[h], red)
+        for h in ["H5"]:
+            self.layout.set(self.MAPPING[h], lila)
+        for h in ["I5"]:
+            self.layout.set(self.MAPPING[h], green1)
+        for h in ["J5"]:
+            self.layout.set(self.MAPPING[h], green2)
+        for h in ["B6","C6","D6","E6","F6","G6"]:
+            self.layout.set(self.MAPPING[h], red)
+        for h in ["H6"]:
+            self.layout.set(self.MAPPING[h], lila)
+        for h in ["I6"]:
+            self.layout.set(self.MAPPING[h], green1)
+        for h in ["J6"]:
+            self.layout.set(self.MAPPING[h], green2)
+
+
+
 
         self.layout.push_to_driver()
         time.sleep(10)
