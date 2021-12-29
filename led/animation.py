@@ -144,6 +144,7 @@ class MoonBoard:
 
     def run_animation(self, run_options={}, **kwds): # FIXME: will it still work?
         duration = 0.01
+        duration2 = duration * 10
 
         for i in range(1,self.ROWS+1):
             for j in range (0,self.COLS):
@@ -156,7 +157,7 @@ class MoonBoard:
                     self.layout.push_to_driver()
                     time.sleep(duration)
     
-        time.sleep(60*10)
+        time.sleep(duration2)
 
         self.clear()
         
