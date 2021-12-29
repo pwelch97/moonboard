@@ -160,7 +160,7 @@ class MoonBoard:
         
         flarePos = 0.
         gravity = -.004 * 10 # m/s/s
-        flareVel = random.randint(50,90) / 100.  *1.5 # trial and error to get reasonable range
+        flareVel = random.randint(50,90) / 100.  *1.7 # trial and error to get reasonable range
         brightness = 1.
 
         # initialize launch sparks
