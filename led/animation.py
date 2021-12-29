@@ -190,7 +190,7 @@ class MoonBoard:
                 
                 #leds[int(sparkPos[i])] = HeatColor(sparkCol[i])
                 #leds[int(sparkPos[i])] %= 50 # reduce brightness to 50/255
-                tmp_row = clamp(int (sparkPos[i]), 1, 18)
+                tmp_row = clamp(int (sparkPos[i]*100.), 1, 18)
                 c = (sparkCol[i],0,0)
                 tmp_led = my_col + str (tmp_row)
                 print ("Spark position "+str(tmp_led)+" with "+str(sparkPos[i]))
