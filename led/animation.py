@@ -299,9 +299,9 @@ class MoonBoard:
         self.clear()
         red = (255,0,0)
         black = (0,0,0)
-        lila = hex2rgb('ff99dd') #(255,100,200) #ff99dd
-        green1 = hex2rgb('118233') #COLORS.lime)
-        green2 = hex2rgb('089c48') #COLORS.limegreen
+        lila = hex2rgb(0xff99dd) #(255,100,200) #ff99dd
+        green1 = hex2rgb(0x118233) #COLORS.lime)
+        green2 = hex2rgb(0x089c48) #COLORS.limegreen
 
         for h in ["A1","A2","A3","A4","A5"]:
             self.layout.set(self.MAPPING[h], green2)
