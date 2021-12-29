@@ -239,21 +239,20 @@ class MoonBoard:
                 sparkVel[i] = sparkVel[i] + dying_gravity
                 sparkCol[i] = sparkCol[i] * .99 
                 sparkCol[i] = clamp(sparkCol[i], 0, 255) #  // red cross dissolve 
+
+                c = (0,0,0)
+                tmp_row = clamp(int (sparkPos[i]), 1, NUM_LEDS)
+                tmp_led = my_col + str (tmp_row)
                 if(sparkCol[i] > c1): #// fade white to yellow
                     c = (255, 255, (255 * (sparkCol[i] - c1)) / (255 - c1))
-                    tmp_row = clamp(int (sparkPos[i]), 1, NUM_LEDS)
-                    tmp_led = my_col + str (tmp_row)
-                    self.layout.set(self.MAPPING[tmp_led], c)
                 elif sparkCol[i] < c2: # // fade from red to black
                     c = ((255 * sparkCol[i]) / c2, 0, 0)
-                    tmp_row = clamp(int (sparkPos[i]), 1, NUM_LEDS)
-                    tmp_led = my_col + str (tmp_row)
-                    self.layout.set(self.MAPPING[tmp_led], c)
                 else: # // fade from yellow to red
-                    c = (255, (255 * (sparkCol[i] - c2)) / (c1 - c2), 0)
-                    tmp_row = clamp(int (sparkPos[i]), 1, NUM_LEDS)
-                    tmp_led = my_col + str (tmp_row)
-                    self.layout.set(self.MAPPING[tmp_led], c)
+                    c = (255, (255 * (sparkCol[i] - c2)) / (c1 - c2), 0)     
+
+                print ("Spark position "+str(tmp_led)+" with "+str(sparkPos[i])+" and "+str(c))
+                
+                self.layout.set(self.MAPPING[tmp_led], c)
 
             dying_gravity = dying_gravity * .995 #// as sparks burn out they fall slower
             self.layout.push_to_driver()
