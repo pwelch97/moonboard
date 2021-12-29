@@ -180,7 +180,7 @@ class MoonBoard:
         self.clear()
         while flareVel >= -.2:
             # sparks
-            print ("Run spark")
+            print ("Run spark with "+str(flareVel))
             for i in range (0,5):
                 sparkPos[i] = sparkPos[i] + sparkVel[i]
                 sparkPos[i] = clamp(sparkPos[i], 0, NUM_LEDS)
