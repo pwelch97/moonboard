@@ -189,21 +189,17 @@ class MoonBoard:
                 sparkVel[i] = sparkVel[i] + gravity
                 sparkCol[i] = sparkCol[i] -.8*7 # FIXME
                 sparkCol[i] = clamp(sparkCol[i], 0.0, 255.0)
-                
-                #leds[int(sparkPos[i])] = HeatColor(sparkCol[i])
-                #leds[int(sparkPos[i])] %= 50 # reduce brightness to 50/255
-                tmp_row = clamp(int (sparkPos[i]), 1, 18)
-                c = (sparkCol[i],0,0)
+                tmp_row = clamp(int (sparkPos[i]), 1, NUM_LEDS)
+                c = (sparkCol[i],0,0) # FIXME: cleanup
                 tmp_led = my_col + str (tmp_row)
                 print ("Spark position "+str(tmp_led)+" with "+str(sparkPos[i])+" and "+str(sparkCol[i]))
                 self.layout.set(self.MAPPING[tmp_led], c)
 
 
             # flare
-            #leds[int(flarePos)] = CHSV(0, 0, int(brightness * 255));
-            tmp_row = clamp(int (flarePos), 1, 18)
+            tmp_row = clamp(int (flarePos), 1, NUM_LEDS)
             tmp_led = my_col + str (tmp_row)
-            flareCol = (255.,0,0)
+            flareCol = (255.,0,0) # FIXME 
             print ("Flare position "+str(tmp_led)+" with "+str(flarePos)+" and "+str(flareCol))
             self.layout.set(self.MAPPING[tmp_led], flareCol)
             self.layout.push_to_driver()
