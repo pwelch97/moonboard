@@ -10,15 +10,11 @@ import string
 import json
 import time
 import random
+from colormap import hex2rgb
 
 def clamp(n, minn, maxn):
     return max(min(maxn, n), minn)
 
-def rgb2hex(r,g,b):
-    return "#{:02x}{:02x}{:02x}".format(r,g,b)
-
-def hex2rgb(hexcode):
-    return tuple(map(ord,hexcode[1:].decode('hex')))
 
 
 # FIXME: Describe Layouts 
