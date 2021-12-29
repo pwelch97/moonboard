@@ -193,7 +193,7 @@ class MoonBoard:
                 tmp_row = clamp(int (sparkPos[i]), 1, 18)
                 c = (sparkCol[i],0,0)
                 tmp_led = my_col + str (tmp_row)
-                print ("Spark position "+str(tmp_led)+" with "+sparkPos[i])
+                print ("Spark position "+str(tmp_led)+" with "+str(sparkPos[i]))
                 self.layout.set(self.MAPPING[tmp_led], c)
 
 
