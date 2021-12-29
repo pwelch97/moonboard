@@ -272,7 +272,7 @@ class MoonBoard:
         # The moonboard can serve a (x,y) = (11,18) --> 198 Pixel display 
         # Refs: 
         # - http://www.anirama.com/1000leds/1d-fireworks/
-        duration2 = duration * 5
+        duration2 = duration * 0
 
         for i in range(1,self.ROWS+1):
             for j in range (0,self.COLS):
@@ -291,6 +291,7 @@ class MoonBoard:
 
     def display_rainbow(self):
         self.clear()
+
 
         
     def display_holdset(self, holdset="Hold Set A", duration=10, **kwds): 
