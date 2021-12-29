@@ -151,7 +151,7 @@ class MoonBoard:
     def run_flare(self):
         NUM_SPARKS = 18/2 #// max number (could be NUM_LEDS / 2);
 
-        my_row = "F"
+        my_col = "F"
 
         sparkPos = [0,0,0,0,0]
         sparkVel = [0,0,0,0,0]
@@ -187,8 +187,9 @@ class MoonBoard:
                 
                 #leds[int(sparkPos[i])] = HeatColor(sparkCol[i])
                 #leds[int(sparkPos[i])] %= 50 # reduce brightness to 50/255
+                tmp_row = clamp(int (sparkPos[i]), 0, 18)
                 c = (100,100,0)
-                tmp_led = my_row + str (int (sparkPos[i]))
+                tmp_led = my_col + str (tmp_row)
                 self.layout.set(self.MAPPING[tmp_led], c)
 
 
