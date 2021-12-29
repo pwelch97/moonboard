@@ -150,9 +150,9 @@ class MoonBoard:
 
         my_row = "F"
 
-        sparkPos = []
-        sparkVel = []
-        sparkCol = []
+        sparkPos = [0,0,0,0,0]
+        sparkVel = [0,0,0,0,0]
+        sparkCol = [0,0,0,0,0]
         flarePos = 0.
 
         gravity = -.004; # m/s/s
