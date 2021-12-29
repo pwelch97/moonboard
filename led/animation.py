@@ -167,7 +167,7 @@ class MoonBoard:
         print ("Init launch sparks")
         for i in range (0,3):
             sparkPos[i] = 0.
-            sparkVel[i] = flareVel #float(random.randint(1,255) / 255) * (flareVel / 5)
+            sparkVel[i] = flareVel * float(random.randint(80,120) / 100)  # * (flareVel / 5)
             # random around 20% of flare velocity
             sparkCol[i] = sparkVel[i] * 1000
             sparkCol[i] = clamp(sparkCol[i], 0, 255)
@@ -182,7 +182,7 @@ class MoonBoard:
             for i in range (1,NUM_LEDS+1):
                 tmp_led = my_col + str (i)
                 self.layout.set(self.MAPPING[tmp_led], (0,0,0))
-                
+
             for i in range (0,3):
                 sparkPos[i] = sparkPos[i] + sparkVel[i]
                 sparkPos[i] = clamp(sparkPos[i], 0.0, NUM_LEDS*1.0)
