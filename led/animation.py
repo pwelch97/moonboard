@@ -267,12 +267,11 @@ class MoonBoard:
 
 
 
-    def run_animation(self, run_options={}, **kwds): # FIXME: will it still work?
+    def run_animation(self, duration = 0.01): 
         # The moonboard can serve a (x,y) = (11,18) --> 198 Pixel display 
         # Refs: 
         # - http://www.anirama.com/1000leds/1d-fireworks/
-        duration = 0.01
-        duration2 = duration * 10
+        duration2 = duration * 5
 
         for i in range(1,self.ROWS+1):
             for j in range (0,self.COLS):
@@ -289,7 +288,9 @@ class MoonBoard:
 
         self.clear()
 
-    
+    def display_rainbow(self):
+        self.clear()
+
         
     def display_holdset(self, holdset="Hold Set A", duration=10, **kwds): 
         print ("Display holdset: " + str(holdset))
@@ -355,7 +356,7 @@ if __name__=="__main__":
     #MOONBOARD.display_holdset(args.holdset, args.duration)
 
     print("Run animation,")
-    #MOONBOARD.run_animation() 
+    MOONBOARD.run_animation() 
     MOONBOARD.run_flare(my_col="F")
     MOONBOARD.run_flare(my_col="A")
 
