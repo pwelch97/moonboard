@@ -208,7 +208,7 @@ class MoonBoard:
             self.layout.push_to_driver()
             flarePos = flarePos + flareVel
             flareVel = flareVel + gravity
-            # FIXME brightness =  brightness * .985
+            brightness =  brightness * .985
 
 
 
