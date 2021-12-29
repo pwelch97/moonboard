@@ -185,7 +185,7 @@ class MoonBoard:
                 sparkPos[i] = sparkPos[i] + sparkVel[i]
                 sparkPos[i] = clamp(sparkPos[i], 0, NUM_LEDS)
                 sparkVel[i] = sparkVel[i] + gravity
-                sparkCol[i] = sparkCol[i] -.8
+                sparkCol[i] = sparkCol[i] # FIXME -.8
                 sparkCol[i] = clamp(sparkCol[i], 0, 255)
                 
                 #leds[int(sparkPos[i])] = HeatColor(sparkCol[i])
