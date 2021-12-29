@@ -165,7 +165,7 @@ class MoonBoard:
 
         # initialize launch sparks
         print ("Init launch sparks")
-        for i in range (0,2):
+        for i in range (0,3):
             sparkPos[i] = 0.
             sparkVel[i] = flareVel #float(random.randint(1,255) / 255) * (flareVel / 5)
             # random around 20% of flare velocity
@@ -179,7 +179,7 @@ class MoonBoard:
         while flareVel >= -.2:
             # sparks
             print ("Run spark with "+str(flareVel))
-            for i in range (0,2):
+            for i in range (0,3):
                 sparkPos[i] = sparkPos[i] + sparkVel[i]
                 sparkPos[i] = clamp(sparkPos[i], 0.0, NUM_LEDS*1.0)
                 sparkVel[i] = sparkVel[i] + gravity
