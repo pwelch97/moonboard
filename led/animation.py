@@ -226,6 +226,8 @@ class MoonBoard:
         c2 = 50
 
         while sparkCol[0] > c2/128: # as long as our known spark is lit, work with all the sparks
+            print ("Run spark with reference spark lit  "+str(sparkCol[0]))
+
             # Disable all led in column
             for i in range (1,NUM_LEDS+1):
                 tmp_led = my_col + str (i)
