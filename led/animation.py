@@ -179,6 +179,8 @@ class MoonBoard:
         while flareVel >= -.2:
             # sparks
             print ("Run spark with velocity "+str(flareVel))
+
+            # Disable all led in column
             for i in range (1,NUM_LEDS+1):
                 tmp_led = my_col + str (i)
                 self.layout.set(self.MAPPING[tmp_led], (0,0,0))
@@ -187,7 +189,7 @@ class MoonBoard:
                 sparkPos[i] = sparkPos[i] + sparkVel[i]
                 sparkPos[i] = clamp(sparkPos[i], 0.0, NUM_LEDS*1.0)
                 sparkVel[i] = sparkVel[i] + gravity
-                sparkCol[i] = sparkCol[i] -.8 # FIXME
+                sparkCol[i] = sparkCol[i] -.8*3 # FIXME
                 sparkCol[i] = clamp(sparkCol[i], 0.0, 255.0)
                 
                 #leds[int(sparkPos[i])] = HeatColor(sparkCol[i])
