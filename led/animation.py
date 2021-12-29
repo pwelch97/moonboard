@@ -142,7 +142,7 @@ class MoonBoard:
         time.sleep (1.2)
         self.clear()
 
-    def clamp(n, minn, maxn):
+    def clamp(self, n, minn, maxn):
         return max(min(maxn, n), minn)
 
     def run_flare(self):
