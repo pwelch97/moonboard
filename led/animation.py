@@ -183,10 +183,10 @@ class MoonBoard:
             print ("Run spark with "+str(flareVel))
             for i in range (0,5):
                 sparkPos[i] = sparkPos[i] + sparkVel[i]
-                sparkPos[i] = clamp(sparkPos[i], 0, NUM_LEDS)
+                sparkPos[i] = clamp(sparkPos[i], 0.0, NUM_LEDS*1.0)
                 sparkVel[i] = sparkVel[i] + gravity
                 sparkCol[i] = sparkCol[i] # FIXME -.8
-                sparkCol[i] = clamp(sparkCol[i], 0, 255)
+                sparkCol[i] = clamp(sparkCol[i], 0.0, 255.0)
                 
                 #leds[int(sparkPos[i])] = HeatColor(sparkCol[i])
                 #leds[int(sparkPos[i])] %= 50 # reduce brightness to 50/255
