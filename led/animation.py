@@ -289,7 +289,8 @@ if __name__=="__main__":
     #MOONBOARD.display_holdset(args.holdset, args.duration)
 
     print("Run animation,")
-    MOONBOARD.run_animation() # FIXME
+    #MOONBOARD.run_animation() 
+    MOONBOARD.run_flare()
 
     print(f"wait {args.duration} seconds,")
     time.sleep(args.duration)
