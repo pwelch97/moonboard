@@ -150,38 +150,36 @@ class MoonBoard:
 
     def run_flare(self):
         NUM_LEDS = 18
-        NUM_SPARKS = NUM_LEDS/2 #// max number (could be NUM_LEDS / 2);
+        #NUM_SPARKS = NUM_LEDS/2 #// max number (could be NUM_LEDS / 2);
         
-        # FIXME
-        my_col = "F"
+        my_col = "F"        # FIXME
 
-        sparkPos = [0,0,0,0,0]
-        sparkVel = [0,0,0,0,0]
-        sparkCol = [0,0,0,0,0]
+        sparkPos = [0,0,0] # width of flare: 3 LED
+        sparkVel = [0,0,0]
+        sparkCol = [0,0,0]
+        
         flarePos = 0.
-
         gravity = -.004 * 10 # m/s/s
-
-        flarePos = 0
         flareVel = random.randint(50,90) / 100.  # trial and error to get reasonable range
         brightness = 1.
 
-        print ("Run flare")
-
         # initialize launch sparks
-        for i in range (0,5):
+        print ("Init launch sparks")
+        for i in range (0,2):
             sparkPos[i] = 0.
-            sparkVel[i] = float(random.randint(1,255) / 255) * (flareVel / 5)
+            sparkVel[i] = flareVel #float(random.randint(1,255) / 255) * (flareVel / 5)
             # random around 20% of flare velocity
             sparkCol[i] = sparkVel[i] * 1000
             sparkCol[i] = clamp(sparkCol[i], 0, 255)
+            print (str(i)+ " with "+str(sparkVel[i])+" and "+str(sparkCol[i]))
 
+        print ("Run flare")
         # launch
         self.clear()
         while flareVel >= -.2:
             # sparks
             print ("Run spark with "+str(flareVel))
-            for i in range (0,5):
+            for i in range (0,2):
                 sparkPos[i] = sparkPos[i] + sparkVel[i]
                 sparkPos[i] = clamp(sparkPos[i], 0.0, NUM_LEDS*1.0)
                 sparkVel[i] = sparkVel[i] + gravity
