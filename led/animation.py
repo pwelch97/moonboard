@@ -169,7 +169,7 @@ class MoonBoard:
             sparkVel[i] = float(random.randint(1,255) / 255) * (flareVel / 5)
             # random around 20% of flare velocity
             sparkCol[i] = sparkVel[i] * 1000
-            sparkCol[i] = self.clamp(sparkCol[i], 0, 255)
+            sparkCol[i] = self.clamp(self, sparkCol[i], 0, 255)
 
         # launch
         self.clear()
@@ -177,10 +177,10 @@ class MoonBoard:
             # sparks
             for i in range (0,5):
                 sparkPos[i] = sparkPos[i] + sparkVel[i]
-                sparkPos[i] = self.clamp(sparkPos[i], 0, 120)
+                sparkPos[i] = self.clamp(self, sparkPos[i], 0, 120)
                 sparkVel[i] = sparkVel[i] + gravity
                 sparkCol[i] = sparkCol[i] -.8
-                sparkCol[i] = self.clamp(sparkCol[i], 0, 255)
+                sparkCol[i] = self.clamp(self, sparkCol[i], 0, 255)
                 
                 #leds[int(sparkPos[i])] = HeatColor(sparkCol[i])
                 #leds[int(sparkPos[i])] %= 50 # reduce brightness to 50/255
