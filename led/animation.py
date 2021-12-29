@@ -244,7 +244,7 @@ class MoonBoard:
                 
                 spark_col[i] = spark_col[i] + sparkVel[i]
                 spark_col[i] = clamp(spark_col[i],65,65+11) # FIXME
-                tmp_col = chr(int(spark_col[i])+65)
+                tmp_col = chr(int(spark_col[i]))
 
                 c = (0,0,0)
                 tmp_row = clamp(int (sparkPos[i]), 1, NUM_LEDS)
