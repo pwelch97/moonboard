@@ -149,6 +149,7 @@ class MoonBoard:
 
 
     def run_flare(self, my_col="F", use_cols=False):
+        # Reference: http://www.anirama.com/1000leds/1d-fireworks/
         NUM_LEDS = 18 # FIXME
         #NUM_SPARKS = NUM_LEDS/2 #// max number (could be NUM_LEDS / 2);
         
