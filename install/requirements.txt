@@ -38,3 +38,4 @@ spidev
 python-periphery
 rpi-ws281x==4.2.2
 colormap
+easydev

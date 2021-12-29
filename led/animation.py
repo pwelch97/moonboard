@@ -299,9 +299,12 @@ class MoonBoard:
         green1 = hex2rgb("#118233") #COLORS.lime)
         green2 = hex2rgb("#089c48") #COLORS.limegreen
 
-        for h in ["A1","A2","A3","A4","A5"]:
+        for h in ["C1","D1","E1","F1","G1"]:
             self.layout.set(self.MAPPING[h], green2)
-
+        for h in ["B2","H2"]:
+            self.layout.set(self.MAPPING[h], green2)
+        for h in ["C2","D2","E2","F2","G2"]:
+            self.layout.set(self.MAPPING[h], green1)
         self.layout.push_to_driver()
         time.sleep(10)
 
