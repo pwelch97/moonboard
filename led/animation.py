@@ -243,8 +243,9 @@ class MoonBoard:
                 sparkCol[i] = clamp(sparkCol[i], 0, 255) #  // red cross dissolve 
                 
                 spark_col[i] = spark_col[i] + sparkVel[i]
+                spark_col[i] = clamp(spark_col[i],65,65+11) # FIXME
                 tmp_col = chr(int(spark_col[i])+65)
-                
+
                 c = (0,0,0)
                 tmp_row = clamp(int (sparkPos[i]), 1, NUM_LEDS)
                 tmp_led = tmp_col + str (tmp_row)
@@ -255,7 +256,7 @@ class MoonBoard:
                 else: # // fade from yellow to red
                     c = (255, (255 * (sparkCol[i] - c2)) / (c1 - c2), 0)     
 
-                print ("Spark position "+str(tmp_led)+" with "+str(sparkPos[i])+" and "+str(c))
+                print ("Spark position "+str(tmp_led)+" with "+str(sparkPos[i])+" and "+str(tmp_col)+" and "+str(c))
 
                 self.layout.set(self.MAPPING[tmp_led], c)
 
