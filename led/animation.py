@@ -11,6 +11,10 @@ import json
 import time
 import random
 
+def clamp(n, minn, maxn):
+    return max(min(maxn, n), minn)
+
+
 # FIXME: Describe Layouts 
 # FIXME: Delete this
 LED_LAYOUT = {
@@ -142,8 +146,7 @@ class MoonBoard:
         time.sleep (1.2)
         self.clear()
 
-    def clamp(self, n, minn, maxn):
-        return max(min(maxn, n), minn)
+
 
     def run_flare(self):
         NUM_SPARKS = 18/2 #// max number (could be NUM_LEDS / 2);
@@ -169,7 +172,7 @@ class MoonBoard:
             sparkVel[i] = float(random.randint(1,255) / 255) * (flareVel / 5)
             # random around 20% of flare velocity
             sparkCol[i] = sparkVel[i] * 1000
-            sparkCol[i] = self.clamp(self, sparkCol[i], 0, 255)
+            sparkCol[i] = clamp(sparkCol[i], 0, 255)
 
         # launch
         self.clear()
@@ -177,10 +180,10 @@ class MoonBoard:
             # sparks
             for i in range (0,5):
                 sparkPos[i] = sparkPos[i] + sparkVel[i]
-                sparkPos[i] = self.clamp(self, sparkPos[i], 0, 120)
+                sparkPos[i] = clamp(sparkPos[i], 0, 120)
                 sparkVel[i] = sparkVel[i] + gravity
                 sparkCol[i] = sparkCol[i] -.8
-                sparkCol[i] = self.clamp(self, sparkCol[i], 0, 255)
+                sparkCol[i] = clamp(sparkCol[i], 0, 255)
                 
                 #leds[int(sparkPos[i])] = HeatColor(sparkCol[i])
                 #leds[int(sparkPos[i])] %= 50 # reduce brightness to 50/255
