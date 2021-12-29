@@ -189,7 +189,7 @@ class MoonBoard:
                 sparkPos[i] = sparkPos[i] + sparkVel[i]
                 sparkPos[i] = clamp(sparkPos[i], 0.0, NUM_LEDS*1.0)
                 sparkVel[i] = sparkVel[i] + gravity
-                sparkCol[i] = sparkCol[i] -.8*5 # FIXME
+                sparkCol[i] = sparkCol[i] -.8*7 # FIXME
                 sparkCol[i] = clamp(sparkCol[i], 0.0, 255.0)
                 
                 #leds[int(sparkPos[i])] = HeatColor(sparkCol[i])
@@ -208,7 +208,7 @@ class MoonBoard:
             self.layout.push_to_driver()
             flarePos = flarePos + flareVel
             flareVel = flareVel + gravity
-            brightness =  brightness * .985
+            brightness =  brightness * 0.92
 
 
 
