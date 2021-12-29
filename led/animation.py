@@ -237,7 +237,7 @@ class MoonBoard:
                 sparkPos[i] = sparkPos[i] + sparkVel[i]
                 sparkPos[i] = clamp(sparkPos[i], 0, NUM_LEDS)
                 sparkVel[i] = sparkVel[i] + dying_gravity
-                sparkCol[i] = sparkCol[i] * .99 
+                sparkCol[i] = sparkCol[i] * .9 # FIXME 
                 sparkCol[i] = clamp(sparkCol[i], 0, 255) #  // red cross dissolve 
 
                 c = (0,0,0)
@@ -251,7 +251,7 @@ class MoonBoard:
                     c = (255, (255 * (sparkCol[i] - c2)) / (c1 - c2), 0)     
 
                 print ("Spark position "+str(tmp_led)+" with "+str(sparkPos[i])+" and "+str(c))
-                
+
                 self.layout.set(self.MAPPING[tmp_led], c)
 
             dying_gravity = dying_gravity * .995 #// as sparks burn out they fall slower
