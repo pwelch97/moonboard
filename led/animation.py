@@ -204,6 +204,7 @@ class MoonBoard:
             self.layout.set(self.MAPPING[tmp_led], flareCol)
             self.layout.push_to_driver()
             flarePos = flarePos + flareVel
+            flarePos = clamp(flarePos, 0, NUM_LEDS)
             flareVel = flareVel + gravity
             brightness =  brightness * 0.92
 
