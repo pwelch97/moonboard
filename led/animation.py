@@ -189,7 +189,7 @@ class MoonBoard:
                 #leds[int(sparkPos[i])] = HeatColor(sparkCol[i])
                 #leds[int(sparkPos[i])] %= 50 # reduce brightness to 50/255
                 tmp_row = clamp(int (sparkPos[i]), 1, 18)
-                c = (100,100,0)
+                c = (sparkCol[i],0,0)
                 tmp_led = my_col + str (tmp_row)
                 self.layout.set(self.MAPPING[tmp_led], c)
 
