@@ -220,6 +220,31 @@ class MoonBoard:
             sparkVel[i] = sparkVel[i] * flarePos / NUM_LEDS # proportional to height 
 
         sparkCol[0] = 255 # // this will be our known spark 
+        dying_gravity = gravity
+        c1 = 120
+        c2 = 50
+
+        while sparkCol[0] > c2/128: # as long as our known spark is lit, work with all the sparks
+            # Disable all led in column
+            for i in range (1,NUM_LEDS+1):
+                tmp_led = my_col + str (i)
+                self.layout.set(self.MAPPING[tmp_led], (0,0,0))
+
+            for i in range (0,nSparks):
+                sparkPos[i] = sparkPos[i] + sparkVel[i]
+                sparkPos[i] = clamp(sparkPos[i], 0, NUM_LEDS)
+                sparkVel[i] = sparkVel[i] + dying_gravity
+                sparkCol[i] = sparkCol[i] * .99 
+                sparkCol[i] = clamp(sparkCol[i], 0, 255) #  // red cross dissolve 
+                if(sparkCol[i] > c1): #// fade white to yellow
+                    leds[int(sparkPos[i])] = CRGB(255, 255, (255 * (sparkCol[i] - c1)) / (255 - c1))
+                elif sparkCol[i] < c2: # // fade from red to black
+                    leds[int(sparkPos[i])] = CRGB((255 * sparkCol[i]) / c2, 0, 0)
+                else: # // fade from yellow to red
+                    leds[int(sparkPos[i])] = CRGB(255, (255 * (sparkCol[i] - c2)) / (c1 - c2), 0)
+                
+            dying_gravity = dying_gravity * .995 #// as sparks burn out they fall slower
+            self.layout.push_to_driver()
 
     def run_animation(self, run_options={}, **kwds): # FIXME: will it still work?
         # The moonboard can serve a (x,y) = (11,18) --> 198 Pixel display 
