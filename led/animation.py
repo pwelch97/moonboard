@@ -152,9 +152,9 @@ class MoonBoard:
         NUM_LEDS = 18 # FIXME
         #NUM_SPARKS = NUM_LEDS/2 #// max number (could be NUM_LEDS / 2);
         
-        sparkPos = [0,0,0] # width of flare: 3 LED
-        sparkVel = [0,0,0]
-        sparkCol = [0,0,0]
+        sparkPos = [0,0,0,0,0,0] # width of flare: 3 LED
+        sparkVel = [0,0,0,0,0,0]
+        sparkCol = [0,0,0,0,0,0]
         
         flarePos = 0.
         gravity = -.004 * 10 # m/s/s
@@ -163,7 +163,7 @@ class MoonBoard:
 
         # initialize launch sparks
         print ("Init launch sparks")
-        for i in range (0,3):
+        for i in range (0,3): # FIXME nSparks
             sparkPos[i] = 0.
             sparkVel[i] = flareVel * float(random.randint(80,120) / 100)  # * (flareVel / 5)
             # random around 20% of flare velocity
@@ -171,8 +171,8 @@ class MoonBoard:
             sparkCol[i] = clamp(sparkCol[i], 0, 255)
             print (str(i)+ " with "+str(sparkVel[i])+" and "+str(sparkCol[i]))
 
-        print ("Run flare")
-        # launch
+        # Phase 1: Flare
+        print ("Launch flare")
         self.clear()
         while flareVel >= -.2:
             # sparks
@@ -207,8 +207,19 @@ class MoonBoard:
             flareVel = flareVel + gravity
             brightness =  brightness * 0.92
 
+        # Phase 2: Explosion
+        print ("Run explosion")
+        nSparks = int (flarePos / 2)
 
+        # Initialize Sparks
+        for i in range (0,nSparks):
+            sparkPos[i] = flarePos
+            sparkVel[i] = float(random.randint(-100,100) / 100) # from -1 to 1 
+            sparkCol[i] = abs(sparkVel[i]) * 500 # set colors before scaling velocity to keep them bright 
+            sparkCol[i] = clamp(sparkCol[i], 0., 255.)
+            sparkVel[i] = sparkVel[i] * flarePos / NUM_LEDS # proportional to height 
 
+        sparkCol[0] = 255 # // this will be our known spark 
 
     def run_animation(self, run_options={}, **kwds): # FIXME: will it still work?
         # The moonboard can serve a (x,y) = (11,18) --> 198 Pixel display 
