@@ -243,7 +243,7 @@ class MoonBoard:
                 sparkCol[i] = clamp(sparkCol[i], 0, 255) #  // red cross dissolve 
                 
                 spark_col[i] = spark_col[i] + sparkVel[i]
-                spark_col[i] = clamp(spark_col[i],65,65+11) # FIXME
+                spark_col[i] = clamp(spark_col[i],65,65+11-1) # FIXME
                 tmp_col = chr(int(spark_col[i]))
 
                 c = (0,0,0)
