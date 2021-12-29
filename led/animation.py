@@ -299,7 +299,7 @@ class MoonBoard:
         self.clear()
         red = (255,0,0)
         black = (0,0,0)
-        lila = hex2rgb'ff99dd') #(255,100,200) #ff99dd
+        lila = hex2rgb('ff99dd') #(255,100,200) #ff99dd
         green1 = hex2rgb('118233') #COLORS.lime)
         green2 = hex2rgb('089c48') #COLORS.limegreen
 
