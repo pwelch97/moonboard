@@ -440,9 +440,9 @@ if __name__=="__main__":
 
     print("Run animation,")
     #MOONBOARD.run_animation() 
-    #MOONBOARD.run_flare(my_col="F")
     #MOONBOARD.run_flare(my_col="A")
     MOONBOARD.display_melon()
+    MOONBOARD.run_flare(my_col="F")
 
     print(f"wait {args.duration} seconds,")
     time.sleep(args.duration)
