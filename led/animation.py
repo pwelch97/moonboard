@@ -492,7 +492,7 @@ class MoonBoard:
 
 
         
-    def run_animation_single_color(self, duration = 0.01,color=(255,0,0)): 
+    def run_animation_single_color(self, duration = 5,color=(255,0,0)): 
         # The moonboard can serve a (x,y) = (11,18) --> 198 Pixel display 
         # Refs: 
         # - http://www.anirama.com/1000leds/1d-fireworks/
@@ -508,7 +508,7 @@ class MoonBoard:
 
         self.layout.push_to_driver()
 
-        time.sleep(duration2)
+        time.sleep(duration)
 
         self.clear()
 
@@ -581,7 +581,8 @@ if __name__=="__main__":
     #MOONBOARD.run_flare(my_col="A")
     #MOONBOARD.display_melon()
     #MOONBOARD.run_flare(my_col="F")
-    MOONBOARD.run_animation_single_color()
+    MOONBOARD.run_animation_single_color(color=(255,0,0))
+    MOONBOARD.run_animation_single_color(color=(0,0,255))
 
     print(f"wait {args.duration} seconds,")
     time.sleep(args.duration)
