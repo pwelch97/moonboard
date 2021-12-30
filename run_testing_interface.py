@@ -67,8 +67,8 @@ class Database():
         logging.debug ("Begin display holds")
         #charmax = chr(ord('@')+lc1)
         for i1 in range (1, lc1):
-            ichar = chr(ord('@')+i1)
-            ihold = ichar+"4"
+            ichar = "B"#chr(ord('@')+i1)
+            ihold = ichar+str(10-lc10)
             logging.debug("Use hold "+ihold)
             self._MOONBOARD.show_hold(ihold)
             # FIXME: Runs too long - next event occurs....
