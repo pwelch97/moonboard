@@ -581,8 +581,9 @@ if __name__=="__main__":
     #MOONBOARD.run_flare(my_col="A")
     #MOONBOARD.display_melon()
     #MOONBOARD.run_flare(my_col="F")
-    MOONBOARD.run_animation_single_color(color=(255,0,0))
-    MOONBOARD.run_animation_single_color(color=(0,0,255))
+    MOONBOARD.run_animation_single_color(color=(255,192,203))
+    MOONBOARD.run_animation_single_color(color=(255,255,0))
+    #MOONBOARD.run_animation_single_color(color=(0,0,255))
 
     print(f"wait {args.duration} seconds,")
     time.sleep(args.duration)
