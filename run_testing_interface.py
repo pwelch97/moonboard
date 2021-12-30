@@ -71,12 +71,15 @@ class Database():
         for i1 in range (1, lc1):
             ichar = "B"#chr(ord('@')+i1)
             ytmp = ymax - lc10
-            for y in range(ymin,ytmp):
-
+            for y in range(ymin,ymax):
                 ihold = ichar+str(y)
-                logging.debug("Use hold "+ihold)
-                #self._MOONBOARD.show_hold(ihold)
-                self._MOONBOARD.layout.set(self._MOONBOARD.MAPPING[ihold], (255,0,0))
+
+                if y < ytmp:
+                    self._MOONBOARD.layout.set(self._MOONBOARD.MAPPING[ihold], (0,0,0))
+                else:
+                    logging.debug("Use hold "+ihold)
+                    #self._MOONBOARD.show_hold(ihold)
+                    self._MOONBOARD.layout.set(self._MOONBOARD.MAPPING[ihold], (255,0,0))
 
             # FIXME: Runs too long - next event occurs....
         self._MOONBOARD.layout.push_to_driver()
