@@ -509,7 +509,7 @@ class MoonBoard:
 
     def run_animation_xmas(self, duration = 0.01): 
 
-        duration2 = duration * 10
+        duration2 = 1#duration * 10
 
         for c in [COLORS.purple, COLORS.blue, COLORS.red]:
 
@@ -520,12 +520,16 @@ class MoonBoard:
                     h = le+str(i)
                     print (h)
                     self.layout.set(self.MAPPING[h], c)
+
+                self.layout.push_to_driver()
+
                 time.sleep(duration)
 
+            time.sleep(duration2)
 
-        self.layout.push_to_driver()
 
-        time.sleep(duration2)
+
+
 
         self.clear()
         
