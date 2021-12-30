@@ -1,3 +1,4 @@
+- v0.31 Animations and prototyped mqtt linkage to hangboard
 - v0.30 simplified installation procedure, fix service logging and installtion collisions
 - v0.28 merged moonboard mini protocol
 - v0.27 merged bt fix test

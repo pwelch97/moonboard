@@ -30,3 +30,7 @@ To stop / restart the moonboard services (i.e. for debugging) use systemctl:
 *** FIXME ***
 
 The LED driver scripts are located in the folder LED. moonboard.py is invoked by the BLE service. Alternatively you can run moonboard.py directly, i.e. for LED strip installation or hold setup. 
+
+
+# Docker version
++ Install docker `curl -fsSL https://get.docker.com -o get-docker.sh` and `sudo sh get-docker.sh`
