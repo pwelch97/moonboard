@@ -9,8 +9,8 @@ import os
 import sys
 import logging
 import time
-import paho.mqtt.client as paho
-# FIXME pip install 
+import paho.mqtt.client as paho # FIXME pip install 
+import math # floor
 
 # external power LED and power button
 LED_GPIO = 26
@@ -56,8 +56,10 @@ class Database():
         
         lc = int(msg["loadcurrent"]) 
         lc1 = int(repr(lc)[-1]) 
+        lc10 = math.floor(lc/10)
         #lc10 = int(repr(lc)[-2]) 
         #lc100 = int(repr(lc)[-3]) 
+        logging.debug("Using: lc10:"+str(lc10))
         logging.debug ("Clean board")
         
         #self._MOONBOARD.clear()
