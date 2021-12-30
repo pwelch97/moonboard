@@ -268,7 +268,125 @@ class MoonBoard:
             dying_gravity = dying_gravity * .995 #// as sparks burn out they fall slower
             self.layout.push_to_driver()
 
+    def run_flare_multi(self, my_col="F", use_cols=False):
+        # Reference: http://www.anirama.com/1000leds/1d-fireworks/
+        NUM_LEDS = 18 # FIXME
+        #NUM_SPARKS = NUM_LEDS/2 #// max number (could be NUM_LEDS / 2);
+        
+        sparkPos = [0,0,0,0,0,0,0,0,0] # width of flare: 3 LED
+        sparkVel = [0,0,0,0,0,0,0,0,0]
+        sparkCol = [0,0,0,0,0,0,0,0,0]
+        tmp_col = ord (my_col)
+        spark_col = [tmp_col,tmp_col,tmp_col,tmp_col,tmp_col,tmp_col,tmp_col,tmp_col,tmp_col]
+        
+        flarePos = 0.
+        gravity = -.004 * 10 # m/s/s
+        flareVel = random.randint(50,90) / 100.  *1.55 # trial and error to get reasonable range
+        brightness = 1.
 
+        # initialize launch sparks
+        print ("Init launch sparks")
+        for i in range (0,3): # FIXME nSparks
+            sparkPos[i] = 0.
+            sparkVel[i] = flareVel * float(random.randint(80,120) / 100)  # * (flareVel / 5)
+            # random around 20% of flare velocity
+            sparkCol[i] = sparkVel[i] * 1000
+            sparkCol[i] = clamp(sparkCol[i], 0, 255)
+            print (str(i)+ " with "+str(sparkVel[i])+" and "+str(sparkCol[i]))
+
+        # Phase 1: Flare
+        print ("Launch flare")
+        self.clear()
+        while flareVel >= -.2:
+            # sparks
+            print ("Run spark with velocity "+str(flareVel))
+
+            # Disable all led in column
+            for i in range (1,NUM_LEDS+1):
+                for my_col in ["A","B","C","D","E","F","G","H","I","J","K"]:
+                    tmp_led = my_col + str (i)
+                    self.layout.set(self.MAPPING[tmp_led], (0,0,0))
+
+            for i in range (0,3):
+                sparkPos[i] = sparkPos[i] + sparkVel[i]
+                sparkPos[i] = clamp(sparkPos[i], 0.0, NUM_LEDS*1.0)
+                sparkVel[i] = sparkVel[i] + gravity
+                sparkCol[i] = sparkCol[i] -.8*7 # FIXME
+                sparkCol[i] = clamp(sparkCol[i], 0.0, 255.0)
+                tmp_row = clamp(int (sparkPos[i]), 1, NUM_LEDS)
+                c = (sparkCol[i],0,0) # FIXME: cleanup
+                for my_col in ["A","B","C","D","E","F","G","H","I","J","K"]:
+                    tmp_led = my_col + str (tmp_row)
+                    print ("Spark position "+str(tmp_led)+" with "+str(sparkPos[i])+" and "+str(sparkCol[i]))
+                    self.layout.set(self.MAPPING[tmp_led], c)
+
+
+            # flare
+            tmp_row = clamp(int (flarePos), 1, NUM_LEDS)
+            for my_col in ["A","B","C","D","E","F","G","H","I","J","K"]:
+                tmp_led = my_col + str (tmp_row)
+                flareCol = (255.,0,0) # FIXME 
+                print ("Flare position "+str(tmp_led)+" with "+str(flarePos)+" and "+str(flareCol))
+                self.layout.set(self.MAPPING[tmp_led], flareCol)
+
+            self.layout.push_to_driver()
+            flarePos = flarePos + flareVel
+            flarePos = clamp(flarePos, 0, NUM_LEDS)
+            flareVel = flareVel + gravity
+            brightness =  brightness * 0.9
+
+        # Phase 2: Explosion
+        print ("Run explosion")
+        nSparks = int (flarePos / 2)
+
+        # Initialize Sparks
+        for i in range (0,nSparks):
+            sparkPos[i] = flarePos
+            sparkVel[i] = float(random.randint(-100,100) / 100) # from -1 to 1 
+            sparkCol[i] = abs(sparkVel[i]) * 500 # set colors before scaling velocity to keep them bright 
+            sparkCol[i] = clamp(sparkCol[i], 0., 255.)
+            sparkVel[i] = sparkVel[i] * flarePos / NUM_LEDS # proportional to height 
+
+        sparkCol[0] = 255 # // this will be our known spark 
+        dying_gravity = gravity
+        c1 = 120*1.5
+        c2 = 50*2.7
+
+        while sparkCol[0] > c2/128: # as long as our known spark is lit, work with all the sparks
+            print ("Run spark with reference spark lit  "+str(sparkCol[0]))
+
+            # Disable all led in column
+            for i in range (1,NUM_LEDS+1):
+                for my_col in ["A","B","C","D","E","F","G","H","I","J","K"]:
+                    tmp_led = my_col + str (i)
+                    self.layout.set(self.MAPPING[tmp_led], (0,0,0))
+
+            for i in range (0,nSparks):
+                sparkPos[i] = sparkPos[i] + sparkVel[i]
+                sparkPos[i] = clamp(sparkPos[i], 0, NUM_LEDS)
+                sparkVel[i] = sparkVel[i] + dying_gravity
+                sparkCol[i] = sparkCol[i] * .9 # FIXME 
+                sparkCol[i] = clamp(sparkCol[i], 0, 255) #  // red cross dissolve 
+
+                for my_col in ["A","B","C","D","E","F","G","H","I","J","K"]:
+                    tmp_col = my_col
+
+                    c = (0,0,0)
+                    tmp_row = clamp(int (sparkPos[i]), 1, NUM_LEDS)
+                    tmp_led = tmp_col + str (tmp_row)
+                    if(sparkCol[i] > c1): #// fade white to yellow
+                        c = (255, 255, (255 * (sparkCol[i] - c1)) / (255 - c1))
+                    elif sparkCol[i] < c2: # // fade from red to black
+                        c = ((255 * sparkCol[i]) / c2, 0, 0)
+                    else: # // fade from yellow to red
+                        c = (255, (255 * (sparkCol[i] - c2)) / (c1 - c2), 0)     
+
+                    print ("Spark position "+str(tmp_led)+" with "+str(sparkPos[i])+" and "+str(tmp_col)+" and "+str(c))
+
+                    self.layout.set(self.MAPPING[tmp_led], c)
+
+            dying_gravity = dying_gravity * .995 #// as sparks burn out they fall slower
+            self.layout.push_to_driver()
 
     def run_animation(self, duration = 0.01): 
         # The moonboard can serve a (x,y) = (11,18) --> 198 Pixel display 
@@ -441,8 +559,9 @@ if __name__=="__main__":
     print("Run animation,")
     #MOONBOARD.run_animation() 
     #MOONBOARD.run_flare(my_col="A")
-    MOONBOARD.display_melon()
-    MOONBOARD.run_flare(my_col="F")
+    #MOONBOARD.display_melon()
+    #MOONBOARD.run_flare(my_col="F")
+    MOONBOARD.run_flare_multi()
 
     print(f"wait {args.duration} seconds,")
     time.sleep(args.duration)
