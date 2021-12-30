@@ -601,11 +601,11 @@ if __name__=="__main__":
     #MOONBOARD.run_flare(my_col="A")
     while True:
         #
+        MOONBOARD.run_animation_xmas()
         MOONBOARD.display_melon()
         MOONBOARD.run_flare(my_col="F")
         MOONBOARD.run_animation_single_color(color=(255,1,154))
         MOONBOARD.run_animation_single_color(color=(255,255,0))
-        MOONBOARD.run_animation_xmas()
         #MOONBOARD.run_animation_single_color(color=(0,0,255))
 
     print(f"wait {args.duration} seconds,")
