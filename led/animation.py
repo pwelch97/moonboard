@@ -368,18 +368,20 @@ class MoonBoard:
                 sparkCol[i] = sparkCol[i] * .9 # FIXME 
                 sparkCol[i] = clamp(sparkCol[i], 0, 255) #  // red cross dissolve 
 
+                if(sparkCol[i] > c1): #// fade white to yellow
+                    c = (255, 255, (255 * (sparkCol[i] - c1)) / (255 - c1))
+                elif sparkCol[i] < c2: # // fade from red to black
+                    c = ((255 * sparkCol[i]) / c2, 0, 0)
+                else: # // fade from yellow to red
+                    c = (255, (255 * (sparkCol[i] - c2)) / (c1 - c2), 0)    
+
                 for my_col in ["A","B","C","D","E","F","G","H","I","J","K"]:
                     tmp_col = my_col
 
                     c = (0,0,0)
                     tmp_row = clamp(int (sparkPos[i]), 1, NUM_LEDS)
                     tmp_led = tmp_col + str (tmp_row)
-                    if(sparkCol[i] > c1): #// fade white to yellow
-                        c = (255, 255, (255 * (sparkCol[i] - c1)) / (255 - c1))
-                    elif sparkCol[i] < c2: # // fade from red to black
-                        c = ((255 * sparkCol[i]) / c2, 0, 0)
-                    else: # // fade from yellow to red
-                        c = (255, (255 * (sparkCol[i] - c2)) / (c1 - c2), 0)     
+                  
 
                     print ("Spark position "+str(tmp_led)+" with "+str(sparkPos[i])+" and "+str(tmp_col)+" and "+str(c))
 
@@ -490,7 +492,25 @@ class MoonBoard:
 
 
         
+    def run_animation_single_color(self, duration = 0.01,color=(255,0,0)): 
+        # The moonboard can serve a (x,y) = (11,18) --> 198 Pixel display 
+        # Refs: 
+        # - http://www.anirama.com/1000leds/1d-fireworks/
+        duration2 = duration * 0
 
+        for i in range(1,self.ROWS+1):
+            for j in range (0,self.COLS):
+
+                le = chr(j+65)
+                h = le+str(i)
+                print (h)
+                self.layout.set(self.MAPPING[h], color)
+
+        self.layout.push_to_driver()
+
+        time.sleep(duration2)
+
+        self.clear()
 
         
     def display_holdset(self, holdset="Hold Set A", duration=10, **kwds): 
@@ -561,7 +581,7 @@ if __name__=="__main__":
     #MOONBOARD.run_flare(my_col="A")
     #MOONBOARD.display_melon()
     #MOONBOARD.run_flare(my_col="F")
-    MOONBOARD.run_flare_multi()
+    MOONBOARD.run_animation_single_color()
 
     print(f"wait {args.duration} seconds,")
     time.sleep(args.duration)
