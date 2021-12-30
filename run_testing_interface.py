@@ -66,20 +66,34 @@ class Database():
         
         logging.debug ("Begin display holds")
         #charmax = chr(ord('@')+lc1)
+
+        ## 10er
         ymax = 10
         ymin = 1
-        for i1 in range (1, lc1):
-            ichar = "B"#chr(ord('@')+i1)
-            ytmp = ymax - lc10
-            for y in range(ymin,ymax):
-                ihold = ichar+str(y)
+        ichar = "E"#chr(ord('@')+i1)
+        ytmp = ymax - lc10
+        for y in range(ymin,ymax):
+            ihold = ichar+str(y)
 
-                if y < ytmp:
-                    self._MOONBOARD.layout.set(self._MOONBOARD.MAPPING[ihold], (0,0,0))
-                else:
-                    logging.debug("Use hold "+ihold)
-                    #self._MOONBOARD.show_hold(ihold)
-                    self._MOONBOARD.layout.set(self._MOONBOARD.MAPPING[ihold], (255,0,0))
+            if y < ytmp:
+                self._MOONBOARD.layout.set(self._MOONBOARD.MAPPING[ihold], (0,0,0))
+            else:
+                logging.debug("Use hold "+ihold)
+                self._MOONBOARD.layout.set(self._MOONBOARD.MAPPING[ihold], (255,0,0))
+
+        ## 1er
+        ichar = "F"#chr(ord('@')+i1)
+        ytmp = ymax - lc1
+        for y in range(ymin,ymax):
+            ihold = ichar+str(y)
+
+            if y < ytmp:
+                self._MOONBOARD.layout.set(self._MOONBOARD.MAPPING[ihold], (0,0,0))
+            else:
+                logging.debug("Use hold "+ihold)
+                self._MOONBOARD.layout.set(self._MOONBOARD.MAPPING[ihold], (255,255,0))
+
+
 
             # FIXME: Runs too long - next event occurs....
         self._MOONBOARD.layout.push_to_driver()
