@@ -493,11 +493,6 @@ class MoonBoard:
 
         
     def run_animation_single_color(self, duration = 5,color=(255,0,0)): 
-        # The moonboard can serve a (x,y) = (11,18) --> 198 Pixel display 
-        # Refs: 
-        # - http://www.anirama.com/1000leds/1d-fireworks/
-        duration2 = duration * 0
-
         for i in range(1,self.ROWS+1):
             for j in range (0,self.COLS):
 
@@ -512,6 +507,27 @@ class MoonBoard:
 
         self.clear()
 
+    def run_animation_xmas(self, duration = 0.01): 
+
+        duration2 = duration * 10
+
+        for c in [COLORS.purple, COLORS.blue, COLORS.red]:
+
+            for i in range(1,self.ROWS+1):
+                for j in range (0,self.COLS):
+
+                    le = chr(j+65)
+                    h = le+str(i)
+                    print (h)
+                    self.layout.set(self.MAPPING[h], c)
+                time.sleep(duration)
+
+
+        self.layout.push_to_driver()
+
+        time.sleep(duration2)
+
+        self.clear()
         
     def display_holdset(self, holdset="Hold Set A", duration=10, **kwds): 
         print ("Display holdset: " + str(holdset))
@@ -579,10 +595,11 @@ if __name__=="__main__":
     print("Run animation,")
     #MOONBOARD.run_animation() 
     #MOONBOARD.run_flare(my_col="A")
-    MOONBOARD.display_melon()
-    MOONBOARD.run_flare(my_col="F")
-    MOONBOARD.run_animation_single_color(color=(255,1,154))
-    MOONBOARD.run_animation_single_color(color=(255,255,0))
+    #MOONBOARD.display_melon()
+    #MOONBOARD.run_flare(my_col="F")
+    #MOONBOARD.run_animation_single_color(color=(255,1,154))
+    #MOONBOARD.run_animation_single_color(color=(255,255,0))
+    MOONBOARD.run_animation_xmas()
     #MOONBOARD.run_animation_single_color(color=(0,0,255))
 
     print(f"wait {args.duration} seconds,")
