@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import argparse
-from led.moonboard import MoonBoard,LED_LAYOUT
+from led.moonboard import MoonBoard
 from functools import partial
 import json
 import RPi.GPIO as GPIO
