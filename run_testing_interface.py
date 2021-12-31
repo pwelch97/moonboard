@@ -73,7 +73,7 @@ class Database():
         ichar = "E"#chr(ord('@')+i1)
         ytmp = ymax - lc10
         color_10er_done = (255,0,0)
-        color_10er_not_done = (100,0,0)
+        color_10er_not_done = (0,0,50)
         for y in range(ymin,ymax):
             ihold = ichar+str(y)
 
@@ -87,7 +87,7 @@ class Database():
         ichar = "F"#chr(ord('@')+i1)
         ytmp = ymax - lc1
         color_1er_done = (0,255,0)
-        color_1er_not_done = (0,100,0)
+        color_1er_not_done = (0,0,50)
         for y in range(ymin,ymax):
             ihold = ichar+str(y)
 
