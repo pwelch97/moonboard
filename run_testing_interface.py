@@ -135,9 +135,9 @@ if __name__ == "__main__":
 
     parser.add_argument('--brightness',  default=100, type=int)
 
-    parser.add_argument('--led_layout',  
-                        default=None, 
-                        choices=list(LED_LAYOUT.keys())
+    parser.add_argument('--led_mapping',
+                        type=str,  
+                        default='led_mapping.json', 
                         )
 
     parser.add_argument('--debug',  action = "store_true")
@@ -154,7 +154,7 @@ if __name__ == "__main__":
         logger.setLevel(logging.INFO)
 
     #problems
-    led_layout = LED_LAYOUT.get(args.led_layout) if args.led_layout is not None else None
+    led_layout = args.led_mapping
     driver_type = args.driver_type
 
     d = Database(driver_type=driver_type, led_layout=led_layout)
