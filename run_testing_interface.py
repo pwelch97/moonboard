@@ -72,26 +72,30 @@ class Database():
         ymin = 1
         ichar = "E"#chr(ord('@')+i1)
         ytmp = ymax - lc10
+        color_10er_done = (255,0,0)
+        color_10er_not_done = (100,0,0)
         for y in range(ymin,ymax):
             ihold = ichar+str(y)
 
             if y < ytmp:
-                self._MOONBOARD.layout.set(self._MOONBOARD.MAPPING[ihold], (0,0,0))
+                self._MOONBOARD.layout.set(self._MOONBOARD.MAPPING[ihold], color_10er_not_done)
             else:
                 logging.debug("Use hold "+ihold)
-                self._MOONBOARD.layout.set(self._MOONBOARD.MAPPING[ihold], (255,0,0))
+                self._MOONBOARD.layout.set(self._MOONBOARD.MAPPING[ihold], color_10er_done)
 
         ## 1er
         ichar = "F"#chr(ord('@')+i1)
         ytmp = ymax - lc1
+        color_1er_done = (0,255,0)
+        color_1er_not_done = (0,100,0)
         for y in range(ymin,ymax):
             ihold = ichar+str(y)
 
             if y < ytmp:
-                self._MOONBOARD.layout.set(self._MOONBOARD.MAPPING[ihold], (0,0,0))
+                self._MOONBOARD.layout.set(self._MOONBOARD.MAPPING[ihold], color_1er_not_done)
             else:
                 logging.debug("Use hold "+ihold)
-                self._MOONBOARD.layout.set(self._MOONBOARD.MAPPING[ihold], (255,255,0))
+                self._MOONBOARD.layout.set(self._MOONBOARD.MAPPING[ihold], color_1er_done)
 
 
 
