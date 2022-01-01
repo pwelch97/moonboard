@@ -60,6 +60,8 @@ class Database():
         #lc10 = int(repr(lc)[-2]) 
         #lc100 = int(repr(lc)[-3]) 
         logging.debug("Using: lc10:"+str(lc10))
+        logging.debug("Using: lc1:"+str(lc1))
+
         logging.debug ("Clean board")
         
         #self._MOONBOARD.clear()
