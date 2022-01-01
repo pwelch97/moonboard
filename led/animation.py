@@ -511,7 +511,7 @@ class MoonBoard:
 
         duration2 = 1#duration * 10
 
-        for c in [COLORS.purple, COLORS.blue, COLORS.red]:
+        for c in [COLORS.purple, COLORS.blue, COLORS.red, COLORS.green]:
 
             for i in range(1,self.ROWS+1):
                 for j in range (0,self.COLS):
