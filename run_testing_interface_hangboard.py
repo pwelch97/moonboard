@@ -67,7 +67,7 @@ class Database():
 
         logging.debug ("Clean board")
         
-        #self._MOONBOARD.clear()
+        self._MOONBOARD.clear()
         
         logging.debug ("Begin display holds")
         #charmax = chr(ord('@')+lc1)
