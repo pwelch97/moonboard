@@ -54,12 +54,13 @@ class Database():
         #t = "Time: " + str(msg["time"])
         #lmax = "\rLoad Max: %.1f    " % msg["loadmaximal"]
         ll = msg["loadcurrent"]
-        if ll < 0:
-            ll = 0
-
-        lc = int(ll) 
-        lc1 = int(repr(lc)[-1]) 
-        lc10 = math.floor(lc/10)
+        lc = 0
+        lc1 = 0
+        lc10 = 0
+        if ll > 0:
+            lc = int(ll) 
+            lc1 = int(repr(lc)[-1]) 
+            lc10 = math.floor(lc/10)
         #lc10 = int(repr(lc)[-2]) 
         #lc100 = int(repr(lc)[-3]) 
         logging.debug("Using: lc10:"+str(lc10))
