@@ -91,4 +91,4 @@ if __name__ == "__main__":
     driver_type = args.driver_type
 
     d = Database(driver_type=driver_type, led_layout=led_layout)
-    d._record_data(hostname="raspi-hangboard")   
+    d._record_data(hostname="raspi-moonboard")   
