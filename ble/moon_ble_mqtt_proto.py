@@ -118,7 +118,7 @@ def start_adv(logger,start=True):
         start='00'
         logger.info('stop adv')
     start_adv= "hcitool -i hci0 cmd 0x08 0x000a {}".format(start)
-    run("sudo " +start_adv, shell=True)
+    #run("sudo " +start_adv, shell=True) # FIXME
 
 def main(logger,adapter):
     logger.info("Bluetooth adapter: "+ str(adapter))
