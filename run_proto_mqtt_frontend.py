@@ -43,7 +43,7 @@ class Database():
         self._MOONBOARD.clear()
         for s in msg["START"]:
             self._MOONBOARD.layout.set(self._MOONBOARD.MAPPING[s], color_start)
-        for m in msg["START"]:
+        for m in msg["MOVES"]:
             self._MOONBOARD.layout.set(self._MOONBOARD.MAPPING[m], color_moves)        
         for t in msg["TOP"]:
             self._MOONBOARD.layout.set(self._MOONBOARD.MAPPING[t], color_top)
