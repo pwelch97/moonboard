@@ -9,3 +9,13 @@ install:
 	sudo systemctl daemon-reload
 	sudo systemctl enable moonboard_ble.service
 	sudo systemctl restart moonboard_ble.service
+
+install-dbus:
+	service="moonboard_ble_dbus.service"
+	echo "Install moonboard service for: moonboard_ble_dbus.service" 
+	sudo cp ./moonboard_ble_dbus.service /lib/systemd/system/
+	sudo chmod 644 /lib/systemd/system/moonboard_ble_dbus.service
+	sudo cp com.moonboard.conf /etc/dbus-1/system.d/com.moonboard.conf
+	sudo systemctl daemon-reload
+	sudo systemctl enable moonboard_ble_dbus.service
+	sudo systemctl restart moonboard_ble_dbus.service
