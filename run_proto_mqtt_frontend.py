@@ -34,7 +34,7 @@ class Database():
 
     def _on_message(self, client, userdata, message):
         logging.debug("Received message " + str(message.payload.decode("utf-8")))
-        mm = message.payload.decode("utf-8")
+        #mm = message.payload.decode("utf-8")
         msg = json.loads(message.payload.decode("utf-8"))
 
         color_start = (0,255,0)
