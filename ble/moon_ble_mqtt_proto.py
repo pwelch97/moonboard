@@ -80,7 +80,6 @@ def monitor_btmon(logger):
 
 def main(logger,adapter):
     logger.info("Bluetooth adapter: "+ str(adapter))
-    app = MoonApplication()    
     
     setup_adv(logger)
     start_adv(logger)
