@@ -114,3 +114,4 @@ See Bluetooth specification 5.0 (Core_v5.0.pdf), 7.8.5 LE Set Advertising Parame
 ## Debugging
 + Status of service `systemctl status moonboard_ble.service`
 + Check for received events `mosquitto_sub -h raspi-moonboard -t "moonboard/ble/problem"`
++ Status of DBUS backend: `sudo systemctl status  com.moonboard.service`

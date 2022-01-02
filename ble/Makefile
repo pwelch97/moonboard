@@ -19,3 +19,4 @@ install-dbus:
 	sudo systemctl daemon-reload
 	sudo systemctl enable com.moonboard.service
 	sudo systemctl restart com.moonboard.service
+	sudo systemctl restart dbus
