@@ -34,16 +34,16 @@ class Database():
 
     def _on_message(self, client, userdata, message):
         logging.debug("Received message " + str(message.payload.decode("utf-8")))
-        #mm = message.payload.decode("utf-8")
+        mm = message.payload.decode("utf-8")
         msg = json.loads(message.payload.decode("utf-8"))
 
         color_start = (0,255,0)
-        #self._MOONBOARD.clear()
-        #for s in mm["START"]:
-        #    self._MOONBOARD.layout.set(self._MOONBOARD.MAPPING[s], color_start)
+        self._MOONBOARD.clear()
+        for s in mm["START"]:
+            self._MOONBOARD.layout.set(self._MOONBOARD.MAPPING[s], color_start)
 
         #self._MOONBOARD.layout.set(self._MOONBOARD.MAPPING[ihold], color_1er_done)
-        #self._MOONBOARD.layout.push_to_driver()
+        self._MOONBOARD.layout.push_to_driver()
 
 
 
