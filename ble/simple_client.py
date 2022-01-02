@@ -1,3 +1,4 @@
+# FIXME: delete, when port to MQTT done
 from gi.repository import GLib
 import dbus
 from dbus.mainloop.glib import DBusGMainLoop
