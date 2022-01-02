@@ -58,6 +58,7 @@ class OutStream: # FIXME: simplify
 
 class MoonboardBLE():
     def __init__(self):
+        self._start_mqtt()
         return
 
     def setup_adv(self,logger):
@@ -93,6 +94,7 @@ class MoonboardBLE():
         if new_problem_string is not None:
             problem= decode_problem_string(new_problem_string, flags)
             print(json.dumps(problem)) # FIXME
+            self._sendmessage("/problem", json.dumps(problem)) # FIXME
             unstuffer.flags = ''
             self.start_adv(logger)
 
@@ -126,6 +128,8 @@ class MoonboardBLE():
 
     def _start_mqtt(self):
         # Connect to MQTT
+        hostname = "raspi-moonboard" # FIXME
+        port = 1883 # FIXME
         self._client = mqtt.Client()
         self._client.connect(hostname, port,60)
         self._sendmessage("/status", "Starting")
