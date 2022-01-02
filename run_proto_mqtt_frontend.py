@@ -38,10 +38,15 @@ class Database():
         msg = json.loads(message.payload.decode("utf-8"))
 
         color_start = (0,255,0)
+        color_moves = (0,0,255)
+        color_top = (255,0,0)
         self._MOONBOARD.clear()
         for s in msg["START"]:
             self._MOONBOARD.layout.set(self._MOONBOARD.MAPPING[s], color_start)
-
+        for m in msg["START"]:
+            self._MOONBOARD.layout.set(self._MOONBOARD.MAPPING[m], color_moves)        
+        for t in msg["TOP"]:
+            self._MOONBOARD.layout.set(self._MOONBOARD.MAPPING[t], color_top)
         #self._MOONBOARD.layout.set(self._MOONBOARD.MAPPING[ihold], color_1er_done)
         self._MOONBOARD.layout.push_to_driver()
 
