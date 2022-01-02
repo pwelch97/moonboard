@@ -16,6 +16,7 @@ import pty
 # FIXME: cleanup code & simplify(!)
 
 BLUEZ_SERVICE_NAME =           'org.bluez'
+DBUS_OM_IFACE =                'org.freedesktop.DBus.ObjectManager'
 LE_ADVERTISING_MANAGER_IFACE = 'org.bluez.LEAdvertisingManager1'
 GATT_MANAGER_IFACE =           'org.bluez.GattManager1'
 GATT_CHRC_IFACE =              'org.bluez.GattCharacteristic1'
@@ -23,8 +24,24 @@ UART_SERVICE_UUID =            '6e400001-b5a3-f393-e0a9-e50e24dcca9e'
 UART_RX_CHARACTERISTIC_UUID =  '6e400002-b5a3-f393-e0a9-e50e24dcca9e'
 UART_TX_CHARACTERISTIC_UUID =  '6e400003-b5a3-f393-e0a9-e50e24dcca9e'
 LOCAL_NAME =                   'Moonboard A'
+SERVICE_NAME=                  'com.moonboard'
 
 # FIXME: on connection lost: error: UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 2: invalid start byte
+
+class RxCharacteristic(Characteristic):
+    def __init__(self, bus, index, service, process_rx):
+        Characteristic.__init__(self, bus, index, UART_RX_CHARACTERISTIC_UUID,
+                                ['write'], service)
+        self.process_rx=process_rx
+
+    def WriteValue(self, value, options):
+        pass
+        #self.process_rx(value)
+
+class UartService(Service):
+    def __init__(self, bus,path, index, process_rx):
+        Service.__init__(self, bus,path, index, UART_SERVICE_UUID, True)
+        self.add_characteristic(RxCharacteristic(bus, 1, self, process_rx))   
 
 
 class OutStream: # FIXME: simplify
