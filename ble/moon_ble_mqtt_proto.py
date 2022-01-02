@@ -72,21 +72,7 @@ class MoonApplication():
         return
 
 
-    def monitor_btmon(self): 
-        out_r, out_w = pty.openpty()
-        cmd = ["sudo","btmon"]
-        process = subprocess.Popen(cmd, stdout=out_w)
-        f = OutStream(out_r)
-        while True:
-            lines, readable = f.read_lines()
-            if not readable: break
-            for line in lines:                
-                if line != '':
-                    line = line.decode()
-                    if 'Data:' in line:
-                        data = line.replace(' ','').replace('\x1b','').replace('[0m','').replace('Data:','')
-                        self.process_rx(data)
-                        #self.logger.info('New data '+ data)
+
 
     def process_rx(self,ba):
         new_problem_string= self.unstuffer.process_bytes(ba)
@@ -125,12 +111,33 @@ def start_adv(logger,start=True):
     start_adv= "hcitool -i hci0 cmd 0x08 0x000a {}".format(start)
     os.system("sudo " +start_adv) 
 
+
+
+
+def monitor_btmon(logger): 
+    out_r, out_w = pty.openpty()
+    cmd = ["sudo","btmon"]
+    process = subprocess.Popen(cmd, stdout=out_w)
+    f = OutStream(out_r)
+    while True:
+        lines, readable = f.read_lines()
+        if not readable: break
+        for line in lines:                
+            if line != '':
+                line = line.decode()
+                if 'Data:' in line:
+                    data = line.replace(' ','').replace('\x1b','').replace('[0m','').replace('Data:','')
+                    self.process_rx(data)
+                    self.logger.info('New data '+ data)
+
+
 def main(logger,adapter):
     logger.info("Bluetooth adapter: "+ str(adapter))
     app = MoonApplication()    
     
     setup_adv(logger)
     start_adv(logger)
+    monitor_btmon(logger)
 
  
 if __name__ == '__main__':
@@ -151,4 +158,4 @@ if __name__ == '__main__':
     else:
         logger.setLevel(logging.INFO)
 
-    main(logger,adapter='/org/bluez/hci0')
+    main(logger,adapter='/org/bluez/hci0') # FIXME: use configured adapter
