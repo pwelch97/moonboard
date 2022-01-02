@@ -114,7 +114,7 @@ class MoonboardBLE():
                     if 'Data:' in line:
                         data = line.replace(' ','').replace('\x1b','').replace('[0m','').replace('Data:','')
                         self.process_rx(unstuffer,logger,data)
-                        t1 = bytearray.fromhex(data).decode()
+                        t1 = bytearray.fromhex(data).decode(errors="ignore")
                         logger.info('New data '+ data)
                         logger.info('New data dec? '+ t1)
 
