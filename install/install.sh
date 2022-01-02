@@ -27,7 +27,13 @@ sudo pip3 install -r install/requirements.txt
 # pip3 uninstall -y -r install/requirements.txt # uninstall
 
 
-echo "Install service" # FIXME
+echo "Install services" # FIXME
+cd ble
+make install
+cd ..
+cd led
+make install 
+cd ..
 
 
 #printf " Restarting" # FIXME
