@@ -122,7 +122,7 @@ def start_adv(logger,start=True):
 
 def main(logger,adapter):
     logger.info("Bluetooth adapter: "+ str(adapter))
-    app = MoonApplication(bus_name,None,logger)    
+    app = MoonApplication()    
     
     setup_adv(logger)
     start_adv(logger)
