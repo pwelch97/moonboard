@@ -3,7 +3,8 @@ Description=Moonboard BLE Service
 After=multi-user.target bluetooth.service hciuart.service 
 
 [Service]
-ExecStart=cd /home/pi/moonboard/ble/; /usr/bin/python3 /home/pi/moonboard/ble/moonboard_ble_service.py 
+WorkingDirectory=/home/pi/moonboard/ble/
+ExecStart=/usr/bin/python3 /home/pi/moonboard/ble/moonboard_ble_service.py 
 Type=idle
 User=pi
 StandardOutput=file:/var/log/moonboard_ble_stdout.log
