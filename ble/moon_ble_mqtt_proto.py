@@ -21,6 +21,40 @@ UART_TX_CHARACTERISTIC_UUID =  '6e400003-b5a3-f393-e0a9-e50e24dcca9e'
 LOCAL_NAME =                   'Moonboard A'
 
 
+class OutStream: # FIXME: simplify
+    def __init__(self, fileno):
+        self._fileno = fileno
+        self._buffer = b""
+
+    def read_lines(self):
+        try:
+            output = os.read(self._fileno, 1000)
+        except OSError as e:
+            if e.errno != errno.EIO: raise
+            output = b""
+        lines = output.split(b"\n")
+        lines[0] = self._buffer + lines[0] # prepend previous
+                                           # non-finished line.
+        if output:
+            self._buffer = lines[-1]
+            finished_lines = lines[:-1]
+            readable = True
+        else:
+            self._buffer = b""
+            if len(lines) == 1 and not lines[0]:
+                # We did not have buffer left, so no output at all.
+                lines = []
+            finished_lines = lines
+            readable = False
+
+        finished_lines = [line.rstrip(b"\r")
+                         for line in finished_lines]
+        
+        return finished_lines, readable
+
+
+
+
 def setup_adv(logger):
     """
     Setup Advertisinf"""
