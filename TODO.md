@@ -1,7 +1,3 @@
-
-# Redesign TBD:
-- Use MQTT instead of DBUS
-
 # Minor stuff
 - uninstaller for services
 
