@@ -108,3 +108,9 @@ See Bluetooth specification 5.0 (Core_v5.0.pdf), 7.8.5 LE Set Advertising Parame
 [Good introduction](http://smartspacestuff.blogspot.com/2016/02/i-got-figurin-out-dbus-bluez.html)
 
 [API](https://git.kernel.org/pub/scm/bluetooth/bluez.git/tree/doc)
+
+
+# MQTT Interface
+## Debugging
++ Status of service `systemctl status moonboard_ble.service`
++ Check for received events `mosquitto_sub -h raspi-moonboard -t "moonboard/ble/problem"`
