@@ -4,6 +4,7 @@
 
 #./10-prepare-raspi.sh # FIXME
 #./20-prepare-python.sh # FIXME
+#./30-install-services.sh # FIXME
 
 
 
@@ -12,20 +13,6 @@
 #cd moonboard
 #git pull
 
-# Installing python dependencies
-echo "Installing python dependencies"
-pip3 install -r install/requirements.txt
-sudo pip3 install -r install/requirements.txt 
-# pip3 uninstall -y -r install/requirements.txt # uninstall
-
-
-echo "Install services" # FIXME
-cd ble
-make install
-cd ..
-cd led
-make install 
-cd ..
 
 
 #printf " Restarting" # FIXME
