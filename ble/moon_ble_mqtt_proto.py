@@ -6,11 +6,16 @@ import string,json
 import subprocess
 import logging
 from moonboard_app_protocol import UnstuffSequence, decode_problem_string
+import paho.mqtt.client as paho # FIXME pip install 
 
 import os
 import threading
 import pty
  
+# FIXME: remove dead code
+# FIXME: create a class, please
+# FIXME: cleanup code & simplify(!)
+
 BLUEZ_SERVICE_NAME =           'org.bluez'
 LE_ADVERTISING_MANAGER_IFACE = 'org.bluez.LEAdvertisingManager1'
 GATT_MANAGER_IFACE =           'org.bluez.GattManager1'
@@ -52,74 +57,76 @@ class OutStream: # FIXME: simplify
         
         return finished_lines, readable
 
+class MoonboardBLE():
+    def __init__(self):
+        return
 
 
-
-def setup_adv(logger):
-    """
-    Setup Advertisinf"""
-    logger.info('setup adv')
-    setup_adv = [
-    "hcitool -i hci0 cmd 0x08 0x000a 00",
-    "hcitool -i hci0 cmd 0x08 0x0008 18 02 01 06 02 0a 00 11 07 9e ca dc 24 0e e5 a9 e0 93 f3 a3 b5 01 00 40 6e 00 00 00 00 00 00 00",
-    "hcitool -i hci0 cmd 0x08 0x0009 0d 0c 09 4d 6f 6f 6e 62 6f 61 72 64 20 41",
-    "hcitool -i hci0 cmd 0x08 0x0006 80 02 c0 03 00 00 00 00 00 00 00 00 00 07 00"
-    ]
-    for c in setup_adv:
-        os.system("sudo "+ c) 
-
-
-def start_adv(logger,start=True):
-    """
-    Start Advertising 
-    """
-    if start:
-        start='01'
-        logger.info('start adv')
-    else:
-        start='00'
-        logger.info('stop adv')
-    start_adv= "hcitool -i hci0 cmd 0x08 0x000a {}".format(start)
-    os.system("sudo " +start_adv) 
-
-def process_rx(unstuffer,logger,ba):
-    new_problem_string= unstuffer.process_bytes(ba)
-    flags = unstuffer.flags
-
-    if new_problem_string is not None:
-        problem= decode_problem_string(new_problem_string, flags)
-        print(json.dumps(problem)) # FIXME
-        unstuffer.flags = ''
-        start_adv(logger)
+    def setup_adv(self,logger):
+        """
+        Setup Advertisinf"""
+        logger.info('setup adv')
+        setup_adv = [
+        "hcitool -i hci0 cmd 0x08 0x000a 00",
+        "hcitool -i hci0 cmd 0x08 0x0008 18 02 01 06 02 0a 00 11 07 9e ca dc 24 0e e5 a9 e0 93 f3 a3 b5 01 00 40 6e 00 00 00 00 00 00 00",
+        "hcitool -i hci0 cmd 0x08 0x0009 0d 0c 09 4d 6f 6f 6e 62 6f 61 72 64 20 41",
+        "hcitool -i hci0 cmd 0x08 0x0006 80 02 c0 03 00 00 00 00 00 00 00 00 00 07 00"
+        ]
+        for c in setup_adv:
+            os.system("sudo "+ c) 
 
 
-def monitor_btmon(logger,unstuffer): 
-    out_r, out_w = pty.openpty()
-    cmd = ["sudo","btmon"]
-    process = subprocess.Popen(cmd, stdout=out_w)
-    f = OutStream(out_r)
-    while True:
-        lines, readable = f.read_lines()
-        if not readable: break
-        for line in lines:                
-            if line != '':
-                line = line.decode()
-                if 'Data:' in line:
-                    data = line.replace(' ','').replace('\x1b','').replace('[0m','').replace('Data:','')
-                    process_rx(unstuffer,logger,data)
-                    t1 = bytearray.fromhex(data).decode()
-                    logger.info('New data '+ data)
-                    logger.info('New data dec? '+ t1)
+    def start_adv(self,logger,start=True):
+        """
+        Start Advertising 
+        """
+        if start:
+            start='01'
+            logger.info('start adv')
+        else:
+            start='00'
+            logger.info('stop adv')
+        start_adv= "hcitool -i hci0 cmd 0x08 0x000a {}".format(start)
+        os.system("sudo " +start_adv) 
+
+    def process_rx(self, unstuffer,logger,ba):
+        new_problem_string= unstuffer.process_bytes(ba)
+        flags = unstuffer.flags
+
+        if new_problem_string is not None:
+            problem= decode_problem_string(new_problem_string, flags)
+            print(json.dumps(problem)) # FIXME
+            unstuffer.flags = ''
+            self.start_adv(logger)
 
 
-def main(logger,adapter):
-    logger.info("Bluetooth adapter: "+ str(adapter))
-    
-    unstuffer= UnstuffSequence(logger)
+    def monitor_btmon(self, logger,unstuffer): 
+        out_r, out_w = pty.openpty()
+        cmd = ["sudo","btmon"]
+        process = subprocess.Popen(cmd, stdout=out_w)
+        f = OutStream(out_r)
+        while True:
+            lines, readable = f.read_lines()
+            if not readable: break
+            for line in lines:                
+                if line != '':
+                    line = line.decode()
+                    if 'Data:' in line:
+                        data = line.replace(' ','').replace('\x1b','').replace('[0m','').replace('Data:','')
+                        self.process_rx(unstuffer,logger,data)
+                        t1 = bytearray.fromhex(data).decode()
+                        logger.info('New data '+ data)
+                        logger.info('New data dec? '+ t1)
 
-    setup_adv(logger)
-    start_adv(logger)
-    monitor_btmon(logger,unstuffer)
+
+    def main(self,logger,adapter):
+        logger.info("Bluetooth adapter: "+ str(adapter))
+        
+        unstuffer= UnstuffSequence(logger)
+
+        self.setup_adv(logger)
+        self.start_adv(logger)
+        self.monitor_btmon(logger,unstuffer)
 
  
 if __name__ == '__main__':
@@ -140,4 +147,5 @@ if __name__ == '__main__':
     else:
         logger.setLevel(logging.INFO)
 
-    main(logger,adapter='/org/bluez/hci0') # FIXME: use configured adapter
+    mbble = MoonboardBLE()
+    mbble.main(logger,adapter='/org/bluez/hci0') # FIXME: use configured adapter
