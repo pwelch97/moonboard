@@ -6,14 +6,13 @@ import string,json
 import subprocess
 import logging
 from moonboard_app_protocol import UnstuffSequence, decode_problem_string
-import paho.mqtt.client as paho # FIXME pip install 
+import paho.mqtt.client as mqtt
 
 import os
 import threading
 import pty
  
 # FIXME: remove dead code
-# FIXME: create a class, please
 # FIXME: cleanup code & simplify(!)
 
 BLUEZ_SERVICE_NAME =           'org.bluez'
@@ -61,7 +60,6 @@ class MoonboardBLE():
     def __init__(self):
         return
 
-
     def setup_adv(self,logger):
         """
         Setup Advertisinf"""
@@ -74,7 +72,6 @@ class MoonboardBLE():
         ]
         for c in setup_adv:
             os.system("sudo "+ c) 
-
 
     def start_adv(self,logger,start=True):
         """
@@ -99,8 +96,7 @@ class MoonboardBLE():
             unstuffer.flags = ''
             self.start_adv(logger)
 
-
-    def monitor_btmon(self, logger,unstuffer): 
+    def monitor_btmon(self, logger, unstuffer): 
         out_r, out_w = pty.openpty()
         cmd = ["sudo","btmon"]
         process = subprocess.Popen(cmd, stdout=out_w)
@@ -128,7 +124,19 @@ class MoonboardBLE():
         self.start_adv(logger)
         self.monitor_btmon(logger,unstuffer)
 
+    def _start_mqtt(self):
+        # Connect to MQTT
+        self._client = mqtt.Client()
+        self._client.connect(hostname, port,60)
+        self._sendmessage("/status", "Starting")
  
+    def _sendmessage(self, topic="/none", message="None"):
+        ttopic = "moonboard/ble/"+topic
+        mmessage = str(message)
+        #logging.debug("MQTT>: " + ttopic + " ###> " + mmessage)
+        self._client.publish(ttopic, mmessage)
+
+
 if __name__ == '__main__':
     
     import argparse
