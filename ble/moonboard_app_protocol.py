@@ -51,7 +51,7 @@ class UnstuffSequence():
         handle some error due to multiple connected devices sending simoultaneously.
         """
 
-        s = bytearray.fromhex(ba).decode()
+        s = bytearray.fromhex(ba).decode("utf-16")
         self.logger.debug("incoming bytes:"+str(s))
         
         if s[0] == '~' and s[-1] == '*':
