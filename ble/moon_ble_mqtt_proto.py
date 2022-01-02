@@ -82,18 +82,18 @@ def start_adv(logger,start=True):
     start_adv= "hcitool -i hci0 cmd 0x08 0x000a {}".format(start)
     os.system("sudo " +start_adv) 
 
-def process_rx(ba):
-    new_problem_string= self.unstuffer.process_bytes(ba)
-    flags = self.unstuffer.flags
+def process_rx(unstuffer,logger,ba):
+    new_problem_string= unstuffer.process_bytes(ba)
+    flags = unstuffer.flags
 
     if new_problem_string is not None:
         problem= decode_problem_string(new_problem_string, flags)
-        #self.new_problem(json.dumps(problem))
-        #self.unstuffer.flags = ''
-        #start_adv()
+        print(json.dumps(problem)) # FIXME
+        unstuffer.flags = ''
+        start_adv(logger)
 
 
-def monitor_btmon(logger): 
+def monitor_btmon(logger,unstuffer): 
     out_r, out_w = pty.openpty()
     cmd = ["sudo","btmon"]
     process = subprocess.Popen(cmd, stdout=out_w)
@@ -106,7 +106,7 @@ def monitor_btmon(logger):
                 line = line.decode()
                 if 'Data:' in line:
                     data = line.replace(' ','').replace('\x1b','').replace('[0m','').replace('Data:','')
-                    #self.process_rx(data)
+                    self.process_rx(unstuffer,logger,data)
                     t1 = bytearray.fromhex(data).decode()
                     logger.info('New data '+ data)
                     logger.info('New data dec? '+ t1)
@@ -115,9 +115,11 @@ def monitor_btmon(logger):
 def main(logger,adapter):
     logger.info("Bluetooth adapter: "+ str(adapter))
     
+    unstuffer= UnstuffSequence(logger)
+
     setup_adv(logger)
     start_adv(logger)
-    monitor_btmon(logger)
+    monitor_btmon(logger,unstuffer)
 
  
 if __name__ == '__main__':
