@@ -20,69 +20,6 @@ UART_RX_CHARACTERISTIC_UUID =  '6e400002-b5a3-f393-e0a9-e50e24dcca9e'
 UART_TX_CHARACTERISTIC_UUID =  '6e400003-b5a3-f393-e0a9-e50e24dcca9e'
 LOCAL_NAME =                   'Moonboard A'
 
-class RxCharacteristic(Characteristic):
-    def __init__(self, bus, index, service, process_rx):
-        Characteristic.__init__(self, bus, index, UART_RX_CHARACTERISTIC_UUID,
-                                ['write'], service)
-        self.process_rx=process_rx
-
-    def WriteValue(self, value, options):
-        pass
-        #self.process_rx(value)
-
-class UartService(Service):
-    def __init__(self, bus,path, index, process_rx):
-        Service.__init__(self, bus,path, index, UART_SERVICE_UUID, True)
-        self.add_characteristic(RxCharacteristic(bus, 1, self, process_rx))       
-
-class OutStream:
-    def __init__(self, fileno):
-        self._fileno = fileno
-        self._buffer = b""
-
-    def read_lines(self):
-        try:
-            output = os.read(self._fileno, 1000)
-        except OSError as e:
-            if e.errno != errno.EIO: raise
-            output = b""
-        lines = output.split(b"\n")
-        lines[0] = self._buffer + lines[0] # prepend previous
-                                           # non-finished line.
-        if output:
-            self._buffer = lines[-1]
-            finished_lines = lines[:-1]
-            readable = True
-        else:
-            self._buffer = b""
-            if len(lines) == 1 and not lines[0]:
-                # We did not have buffer left, so no output at all.
-                lines = []
-            finished_lines = lines
-            readable = False
-
-        finished_lines = [line.rstrip(b"\r")
-                         for line in finished_lines]
-        
-        return finished_lines, readable
-
-
-class MoonApplication():
-    def __init__(self):
-        return
-
-
-
-
-    def process_rx(self,ba):
-        new_problem_string= self.unstuffer.process_bytes(ba)
-        flags = self.unstuffer.flags
-
-        if new_problem_string is not None:
-            problem= decode_problem_string(new_problem_string, flags)
-            self.new_problem(json.dumps(problem))
-            self.unstuffer.flags = ''
-            start_adv()
 
 def setup_adv(logger):
     """
@@ -111,7 +48,15 @@ def start_adv(logger,start=True):
     start_adv= "hcitool -i hci0 cmd 0x08 0x000a {}".format(start)
     os.system("sudo " +start_adv) 
 
+def process_rx(ba):
+    new_problem_string= self.unstuffer.process_bytes(ba)
+    flags = self.unstuffer.flags
 
+    if new_problem_string is not None:
+        problem= decode_problem_string(new_problem_string, flags)
+        #self.new_problem(json.dumps(problem))
+        #self.unstuffer.flags = ''
+        #start_adv()
 
 
 def monitor_btmon(logger): 
@@ -128,7 +73,9 @@ def monitor_btmon(logger):
                 if 'Data:' in line:
                     data = line.replace(' ','').replace('\x1b','').replace('[0m','').replace('Data:','')
                     #self.process_rx(data)
+                    t1 = bytearray.fromhex(data).decode()
                     logger.info('New data '+ data)
+                    logger.info('New data dec? '+ t1)
 
 
 def main(logger,adapter):
