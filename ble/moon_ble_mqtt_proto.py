@@ -127,8 +127,8 @@ def monitor_btmon(logger):
                 line = line.decode()
                 if 'Data:' in line:
                     data = line.replace(' ','').replace('\x1b','').replace('[0m','').replace('Data:','')
-                    self.process_rx(data)
-                    self.logger.info('New data '+ data)
+                    #self.process_rx(data)
+                    logger.info('New data '+ data)
 
 
 def main(logger,adapter):
