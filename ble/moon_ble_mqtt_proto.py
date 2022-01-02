@@ -106,8 +106,8 @@ def setup_adv(logger):
     "hcitool -i hci0 cmd 0x08 0x0009 0d 0c 09 4d 6f 6f 6e 62 6f 61 72 64 20 41",
     "hcitool -i hci0 cmd 0x08 0x0006 80 02 c0 03 00 00 00 00 00 00 00 00 00 07 00"
     ]
-    for c in setup_adv:
-        run("sudo "+ c, shell=True)
+    #for c in setup_adv:
+    #    run("sudo "+ c, shell=True) # FIXME
 
 
 def start_adv(logger,start=True):
