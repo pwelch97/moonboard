@@ -1,10 +1,10 @@
 #!/bin/bash
 
 echo "Install services" # FIXME
-cd ble
+cd /home/pi/moonboard/ble
 make install
 cd ..
 
-cd led
+cd /home/pi/moonboard/led
 make install 
 cd ..
