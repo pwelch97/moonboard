@@ -19,9 +19,9 @@ lazy-object-proxy==1.3.1
 loady==1.8.10
 MarkupSafe==1.1.1
 mccabe==0.6.1
-numpy==1.21.0
+numpy==1.16.3
 olefile==0.46
-Pillow==9.0.1
+Pillow==8.3.2
 pylint==2.3.1
 pyserial==3.4
 python-dateutil==2.8.0
@@ -37,5 +37,3 @@ wrapt==1.11.1
 spidev 
 python-periphery
 rpi-ws281x==4.2.2
-colormap
-easydev

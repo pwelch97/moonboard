@@ -1,16 +1,13 @@
 [Unit]
-Description=Moonboard BLE DBUS Service
-After=multi-user.target bluetooth.service dbus.service hciuart.service 
-SystemdService=dbus-org.com.moonbooard.service 
-# FIXME: SystemdService not known
+Description=Moonboard DBUS Service
+After=multi-user.target
 
 [Service]
 Type=dbus
 BusName=com.moonboard
-ExecStart=/usr/bin/python3 /home/pi/moonboard/ble/moonboard_ble_dbus_service.py 
+ExecStart=/usr/bin/python3 /home/pi/moonboard/ble/moonboard_BLE_service.py
 User=root
-StandardOutput=file:/var/log/moonboard_ble_stdout.log
-StandardError=file:/var/log/moonboard_ble_stderr.log
+SystemdService=dbus-org.com.moonbooard.service
 
 [Install]
 WantedBy=multi-user.target
